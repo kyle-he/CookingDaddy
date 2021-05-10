@@ -1,4 +1,3 @@
-package CookingDaddy;
 /**
  *  Write a one-sentence summary of your class here.
  *  Follow it with additional details about its purpose, what abstraction
