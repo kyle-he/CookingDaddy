@@ -1,3 +1,5 @@
+package CookingDaddy;
+
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,26 +10,31 @@ public class Generator {
     private ArrayList<String> allIngredients;
     private ArrayList<String> allSauces;
     private ArrayList<String> allAdjectives;
+    private ArrayList<String> allDrinks;
 
     public Generator(){
         allNames = loadFile("names");
         allIngredients = loadFile("ingredients");
         allSauces = loadFile("sauces");
         allAdjectives = loadFile("adjective");
+        allDrinks = loadFile("drinks");
     }
 
     public Recipe generateRecipe(){
         Recipe recipe = new Recipe(generateRecipeName());
-        for (String i: allIngredients){
-            if (Math.random() > 0.5){
-                recipe.addIngredient(i);
+        for (int i = 0; i < Math.max(allSauces.size(), allIngredients.size()); i++)
+        {
+            if (i < allIngredients.size() && Math.random() > 0.5)
+            {
+                recipe.addSomething(0, allIngredients.get(i));
+            }
+            if (i < allSauces.size() && Math.random() > 0.5)
+            {
+                recipe.addSomething(0, allSauces.get(i));
             }
         }
-        for (String s: allSauces){
-            if (Math.random() > 0.5){
-                recipe.addSauce(s);
-            }
-        }
+        recipe.addSomething(0, "bun");
+        recipe.addSomething(recipe.getIngredientsAndSauces().size(), "bun");
         return recipe;
     }
 
@@ -38,12 +45,19 @@ public class Generator {
         return String.format("%s's %s Burger", name, adjective);
     }
 
+    public Order generateOrder()
+    {
+        int i = (int) (Math.random()*allDrinks.size());
+        Order o = new Order(allDrinks.get(i), generateRecipe());
+        return o;
+    }
+
     public ArrayList<String> loadFile(String name){
         ArrayList<String> list = new ArrayList<String>();
         try {
             try(BufferedReader br = new BufferedReader(new FileReader("constants/" + name + ".txt"))) {
                 String line = br.readLine();
-            
+
                 while (line != null) {
                     list.add(line);
                     line = br.readLine();
