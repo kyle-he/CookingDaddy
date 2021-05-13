@@ -1,8 +1,9 @@
 public class Main{
     public static void main(String[] args) {
-        Generator g = new Generator();
+        CustomerHandler ch = new CustomerHandler();
         for (int i = 0; i < 10; i++){
-            System.out.println(g.generateOrder() + "\n");
+            ch.addCustomer();
         }
+        System.out.print(ch);
     }
 }

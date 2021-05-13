@@ -19,6 +19,6 @@ public class Order
 
     public String toString()
     {
-        return "Drink: " + drink + "\n" + recipe.toString();
+        return recipe.toString() + "\nDrink: " + drink;
     }
 }
