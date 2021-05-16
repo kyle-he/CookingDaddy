@@ -5,17 +5,19 @@ import java.io.IOException;
 
 public class Generator {
     private ArrayList<String> allNames;
-    private ArrayList<String> allIngredients;
-    private ArrayList<String> allSauces;
     private ArrayList<String> allAdjectives;
-    private ArrayList<String> allDrinks;
+    
+    private ArrayList<Ingredient> allDrinks;
+    private ArrayList<Ingredient> allSauces;
+    private ArrayList<Ingredient> allIngredients;
 
     public Generator(){
         allNames = loadFile("names");
-        allIngredients = loadFile("ingredients");
-        allSauces = loadFile("sauces");
         allAdjectives = loadFile("adjective");
-        allDrinks = loadFile("drinks");
+
+        allIngredients = loadIngredientFile("ingredients");
+        allSauces = loadIngredientFile("sauces");
+        allDrinks = loadIngredientFile("drinks");
     }
 
     public Recipe generateRecipe(){
@@ -24,15 +26,18 @@ public class Generator {
         {
             if (i < allIngredients.size() && Math.random() > 0.5)
             {
-                recipe.addSomething(0, allIngredients.get(i));
+                recipe.addIngredient(0, allIngredients.get(i));
             }
             if (i < allSauces.size() && Math.random() > 0.5)
             {
-                recipe.addSomething(0, allSauces.get(i));
+                recipe.addIngredient(0, allSauces.get(i));
             }
         }
-        recipe.addSomething(0, "bun");
-        recipe.addSomething(recipe.getIngredientsAndSauces().size(), "bun");
+
+        // TODO: think of better way to handle bread
+        // recipe.addIngredient(0, "bun");
+        // recipe.addIngredient(recipe.getIngredientsAndSauces().size(), "bun");
+        
         return recipe;
     }
 
@@ -48,6 +53,17 @@ public class Generator {
         int i = (int) (Math.random()*allDrinks.size());
         Order o = new Order(allDrinks.get(i), generateRecipe());
         return o;
+    }
+
+    public ArrayList<Ingredient> loadIngredientFile(String name){
+        ArrayList<String> list = loadFile(name);
+        ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
+
+        for (String s: list){
+            ingredientList.add(new Ingredient(s));
+        }
+
+        return ingredientList;
     }
 
     public ArrayList<String> loadFile(String name){

@@ -8,10 +8,10 @@
  */
 public class Order
 {
-    private String drink;
+    private Ingredient drink;
     private Recipe recipe;
 
-    public Order(String d, Recipe r)
+    public Order(Ingredient d, Recipe r)
     {
         drink = d;
         recipe = r;
