@@ -14,11 +14,34 @@ public class Order
     public Order(Ingredient d, Recipe r)
     {
         drink = d;
+        drink.setType("drink");
         recipe = r;
+    }
+
+    public Order()
+    {
+        drink = new Ingredient("drink");
+        recipe = new Recipe();
     }
 
     public String toString()
     {
         return recipe.toString() + "\nDrink: " + drink;
+    }
+
+    public Ingredient getDrink()
+    {
+        return drink;
+    }
+
+    public Recipe getRecipe()
+    {
+        return recipe;
+    }
+
+    public void addDrink(Ingredient d)
+    {
+        drink = d;
+        drink.setType("drink");
     }
 }

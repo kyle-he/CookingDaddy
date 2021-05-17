@@ -9,6 +9,9 @@ public class Recipe {
         this.name = name;
         ingredientsAndSauces = new ArrayList<Ingredient>();
     }
+    public Recipe() {
+        ingredientsAndSauces = new ArrayList<Ingredient>();
+    }
 
     public String toString(){
         String recipe = "Name: " + name;
@@ -22,6 +25,11 @@ public class Recipe {
 
     public void addIngredient(int i, Ingredient s){
         ingredientsAndSauces.add(i, s);
+    }
+
+    public void addIngredient(Ingredient s)
+    {
+        ingredientsAndSauces.add(s);
     }
 
     public ArrayList<Ingredient> getIngredientsAndSauces()

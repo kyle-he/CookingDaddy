@@ -3,8 +3,29 @@ public class Ingredient {
     private String name;
     private String type;
 
-    public Ingredient(String name){
-        this.name = name;
+    public Ingredient(String n, String t){
+        name = n;
+        type = t;
+    }
+
+    public Ingredient(String t)
+    {
+        type = t;
+    }
+
+    public Ingredient()
+    {
+        type = "";
+    }
+
+    public void setType(String t)
+    {
+        type = t;
+    }
+
+    public String getType()
+    {
+        return type;
     }
 
     public String toString(){
