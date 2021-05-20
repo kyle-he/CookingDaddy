@@ -82,4 +82,8 @@ public class Generator {
         }
         return list;
     }
+
+    public ArrayList<Ingredient> getallIngredients(){
+        return allIngredients;
+    }
 }
