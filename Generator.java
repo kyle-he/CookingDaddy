@@ -6,7 +6,7 @@ import java.io.IOException;
 public class Generator {
     private ArrayList<String> allNames;
     private ArrayList<String> allAdjectives;
-    
+
     private ArrayList<Ingredient> allDrinks;
     private ArrayList<Ingredient> allSauces;
     private ArrayList<Ingredient> allIngredients;
@@ -37,7 +37,7 @@ public class Generator {
         // TODO: think of better way to handle bread
         // recipe.addIngredient(0, "bun");
         // recipe.addIngredient(recipe.getIngredientsAndSauces().size(), "bun");
-        
+
         return recipe;
     }
 
@@ -60,7 +60,7 @@ public class Generator {
         ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 
         for (String s: list){
-            ingredientList.add(new Ingredient(s));
+            ingredientList.add(new Ingredient(s, name));
         }
 
         return ingredientList;
