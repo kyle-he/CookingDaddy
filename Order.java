@@ -8,13 +8,15 @@
  */
 public class Order
 {
+    private String customerName;
     private Ingredient drink;
     private Recipe recipe;
 
-    public Order(Ingredient d, Recipe r)
+    public Order(String name, Ingredient d, Recipe r)
     {
+        customerName = name;
         drink = d;
-        drink.setType("drink");
+        drink.setType(Ingredient.Type.DRINK);
         recipe = r;
     }
 
@@ -39,9 +41,14 @@ public class Order
         return recipe;
     }
 
+    public String getCustomerName()
+    {
+        return customerName;
+    }
+
     public void addDrink(Ingredient d)
     {
         drink = d;
-        drink.setType("drink");
+        drink.setType(Ingredient.Type.DRINK);
     }
 }

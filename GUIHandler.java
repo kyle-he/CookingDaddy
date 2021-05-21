@@ -4,19 +4,53 @@
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class GUIHandler{
     
-        public GUIHandler() {
-            initUI();
-        }
-    
-        private void initUI() {
-            JFrame frame = new JFrame("Cooking Daddy");
-            frame.setSize(1000,1000);
-            frame.setLayout(new GridLayout(2, 1, 5, 5));
+    public GUIHandler() {
+        initUI();
+    }
 
-            JPanel ingredientPanel = new JPanel(new GridLayout(4, 4, 5, 5));
+    private void initUI() {
+        JFrame frame = new JFrame("Cooking Daddy");
+        frame.setSize(1000,1000);
+        
+        JPanel contentPane =  new JPanel();
+        contentPane.setLayout(new GridLayout(2, 1, 5, 5));
+        contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        frame.setContentPane(contentPane);
+
+        JPanel gamePanel = new JPanel(new GridLayout(1, 4, 5, 5));
+        scoreCard scoreCard = new scoreCard();
+        buildingPanel buildingPanel = new buildingPanel();
+        orderPanel orderPanel = new orderPanel();
+        ingredientPanel ingredientPanel = new ingredientPanel();
+
+        gamePanel.add(scoreCard);
+        gamePanel.add(buildingPanel);
+        gamePanel.add(orderPanel);
+
+        frame.add(gamePanel);
+        frame.add(ingredientPanel);
+
+        Generator g = new Generator();
+        Order o = g.generateOrder();
+        orderPanel.displayOrder(o);
+
+        frame.setVisible(true);
+    }    
+
+    private class ingredientPanel extends JPanel{
+        public ingredientPanel(){
+            setLayout(new GridLayout(4, 4, 5, 5));
+            setBackground(new Color(0xF5CBA7));
+            setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
 
             for (int i = 0; i < 15; i++){
                 JButton button = new JButton();
@@ -25,68 +59,102 @@ public class GUIHandler{
                 // button.setForeground(Color.white);
 
                 button.setUI(new IngredientButton());
-                ingredientPanel.add(button);
-            }
-
-            JPanel gamePanel = new JPanel(new GridLayout(1, 4, 5, 5));
-
-            gamePanel.add(new scoreCard());
-            gamePanel.add(new buildingPanel());
-            gamePanel.add(new orderPanel());
-
-            frame.add(gamePanel);
-            frame.add(ingredientPanel);
-
-            frame.setVisible(true);
-        }    
-
-        private class orderPanel extends JPanel{
-            private Label title;
-            private Label description;
-            
-            public orderPanel(){
-                setLayout(new GridLayout(2,1));
-                setBackground(Color.yellow);
-
-                title = new Label("Title");
-                description = new Label("Descrip");
-
-                add(title);
-                add(description);
-            }
-
-        }
-
-        private class buildingPanel extends JPanel{
-            private Label title;
-            private Label description;
-            
-            public buildingPanel(){
-                setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-                setBackground(Color.yellow);
-                setAlignmentX(Component.CENTER_ALIGNMENT);
-
-                title = new Label("Food stuff");
-                description = new Label("food");
-
-                add(title);
-                add(description);
-            }
-
-            public void updateFood(Recipe food){
-
+                add(button);
             }
         }
+    }
 
-        private class scoreCard extends JPanel{
-            private Label title;
+    private class orderPanel extends JPanel{
+        private JLabel title;
+        private JLabel description;
+        
+        public orderPanel(){
+            // setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            // setBackground(Color.yellow);
+            // setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
-            public scoreCard(){
-                setLayout(new GridLayout(2,1));
+            // title = new JLabel("Order");
+            // title.setFont(new Font("Helvetica", Font.BOLD, 24));
+            // title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-                title = new Label("eee \n eeee \n eeee");
-                add(title);
+            // description = new JLabel("Descrip");
+
+            // add(title);
+            // add(description);
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBackground(new Color(0xF7F9F9));
+            setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
+
+            title = new JLabel("Some Guy's Order");
+            title.setFont(new Font("Helvetica", Font.BOLD, 15));
+
+            description = new JLabel("food");
+
+            add(title);
+            add(description);
+        }
+
+        public void displayOrder(Order order){
+            title.setText(order.getCustomerName() + "'s Order");
+            description.setText(order.toString());
+        }
+    }
+
+    private class buildingPanel extends JPanel{
+        private JLabel title;
+        private JLabel description;
+        
+        public buildingPanel(){
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBackground(new Color(0xFCF3CF));
+            setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(0x301800), 3), new EmptyBorder(10, 10, 10, 10)));
+
+            title = new JLabel("Burger in Progress");
+            title.setFont(new Font("Helvetica", Font.BOLD, 15));
+            title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            description = new JLabel("food");
+
+            add(title);
+            // add(description);
+
+            try
+            {
+                BufferedImage image = ImageIO.read(new File("images/daddy_burgertest.png"));
+                Image img = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+                JLabel picLabel = new JLabel(new ImageIcon(img));
+                add(picLabel);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
         }
+
+        public void displayFood(Recipe recipe){
+            description.setText(recipe.toString());
+        }
+    }
+
+    private class scoreCard extends JPanel{
+        private JLabel title;
+
+        public scoreCard(){
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBackground(new Color(0xEBF5FB));
+            setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(0x1B4F72), 3), new EmptyBorder(10, 10, 10, 10)));
+
+            title = new JLabel("Past Orders");
+            title.setFont(new Font("Helvetica", Font.BOLD, 15));
+            title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+            add(title);
+        }
+    }
+
+    private class timeCountdown extends JProgressBar{
+
+    }
 }
 

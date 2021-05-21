@@ -7,6 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/**
+ *  This is the ingredient button formatter.
+ *
+ *  @author Kyle He
+ *  @version May 13, 2021
+ */
 class IngredientButton extends BasicButtonUI {
 
     @Override
@@ -38,10 +44,5 @@ class IngredientButton extends BasicButtonUI {
         {
             e.printStackTrace();
         }
-
-        // g.setColor(c.getBackground().darker());
-        // g.fillRoundRect(0, yOffset, size.width, size.height - yOffset, 10, 10);
-        // g.setColor(c.getBackground());
-        // g.fillRoundRect(0, yOffset, size.width, size.height + yOffset - 5, 10, 10);
     }
 }

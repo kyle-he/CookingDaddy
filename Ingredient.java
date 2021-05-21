@@ -1,29 +1,35 @@
+/**
+ *  This class holds the ingredients
+ *
+ *  @author Kyle He, Angela Jiao
+ *  @version May 13, 2021
+ */
 public class Ingredient {
     // image stuff
-    private String name;
-    private String type;
+    public enum Type
+    {
+        DRINK, FOOD, SAUCE
+    }
 
-    public Ingredient(String n, String t){
+    private Type type;
+    private String name;
+
+    public Ingredient(String n, Type t){
         name = n;
         type = t;
     }
 
-    public Ingredient(String t)
+    public Ingredient(String n)
+    {
+        name = n;
+    }
+
+    public void setType(Type t)
     {
         type = t;
     }
 
-    public Ingredient()
-    {
-        type = "";
-    }
-
-    public void setType(String t)
-    {
-        type = t;
-    }
-
-    public String getType()
+    public Type getType()
     {
         return type;
     }

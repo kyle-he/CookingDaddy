@@ -3,8 +3,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ *  This class generates all the text based stuff
+ *
+ *  @author Kyle He
+ *  @version May 13, 2021
+ */
 public class Generator {
     private ArrayList<String> allNames;
+    private ArrayList<String> allLastNames;
     private ArrayList<String> allAdjectives;
 
     private ArrayList<Ingredient> allDrinks;
@@ -13,11 +20,12 @@ public class Generator {
 
     public Generator(){
         allNames = loadFile("names");
+        allLastNames = loadFile("last_names");
         allAdjectives = loadFile("adjective");
 
-        allIngredients = loadIngredientFile("ingredients");
-        allSauces = loadIngredientFile("sauces");
-        allDrinks = loadIngredientFile("drinks");
+        allIngredients = loadIngredientFile("ingredients", Ingredient.Type.FOOD);
+        allSauces = loadIngredientFile("sauces", Ingredient.Type.SAUCE);
+        allDrinks = loadIngredientFile("drinks", Ingredient.Type.DRINK);
     }
 
     public Recipe generateRecipe(){
@@ -42,25 +50,28 @@ public class Generator {
     }
 
     public String generateRecipeName(){
-        String name = allNames.get((int) (Math.random() * allNames.size()));
-        String adjective = allAdjectives.get((int) (Math.random() * allAdjectives.size()));
+        String name = getRandom(allNames);
+        String adjective = getRandom(allAdjectives);
 
         return String.format("%s's %s Burger", name, adjective);
     }
 
     public Order generateOrder()
     {
-        int i = (int) (Math.random()*allDrinks.size());
-        Order o = new Order(allDrinks.get(i), generateRecipe());
+        Order o = new Order(generateCustomerName(), getRandom(allDrinks), generateRecipe());
         return o;
     }
 
-    public ArrayList<Ingredient> loadIngredientFile(String name){
+    public String generateCustomerName(){
+        return getRandom(allNames) + " " + getRandom(allLastNames);
+    }
+
+    public ArrayList<Ingredient> loadIngredientFile(String name, Ingredient.Type type){
         ArrayList<String> list = loadFile(name);
         ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 
         for (String s: list){
-            ingredientList.add(new Ingredient(s, name));
+            ingredientList.add(new Ingredient(s, type));
         }
 
         return ingredientList;
@@ -85,5 +96,9 @@ public class Generator {
 
     public ArrayList<Ingredient> getallIngredients(){
         return allIngredients;
+    }
+
+    private <T> T getRandom(ArrayList<T> list){
+       return list.get((int) (Math.random() * list.size()));
     }
 }
