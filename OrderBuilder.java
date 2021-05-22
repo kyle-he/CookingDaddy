@@ -30,7 +30,7 @@ public class OrderBuilder
             }
             return false;
         }
-        if (i.equals(goal.getRecipe().getIngredientsAndSauces().get(index)))
+        if (i.equals(goal.getRecipe().getIngredients().get(index)))
         {
             current.getRecipe().addIngredient(i);
             index++;
