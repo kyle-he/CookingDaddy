@@ -1,5 +1,4 @@
-lettuce
 beef patty
-steak
+lettuce
 cheese
-tomatoes
+tomato

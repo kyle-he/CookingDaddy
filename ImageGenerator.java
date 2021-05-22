@@ -9,10 +9,8 @@ import java.util.ArrayList;
  *  @version May 13, 2021
  */
 public class ImageGenerator {
-    private ArrayList<Ingredient> ingredients;
-
     public ImageGenerator(){
-
+        
     } 
     
     public BufferedImage foodImage(Recipe r){

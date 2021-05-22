@@ -22,9 +22,11 @@ public class GUIHandler{
     public ingredientPanel ingredientPanel;
 
     private ImageGenerator imageGenerator;
+    private Generator generator;
     
     public GUIHandler() {
         imageGenerator = new ImageGenerator();
+        generator = new Generator();
         initUI();
     }
 
@@ -50,9 +52,6 @@ public class GUIHandler{
         frame.add(gamePanel);
         frame.add(ingredientPanel);
 
-        Generator g = new Generator();
-        Order o = g.generateOrder();
-        orderPanel.displayOrder(o);
 
         frame.setVisible(true);
     }    
@@ -63,13 +62,9 @@ public class GUIHandler{
             setBackground(new Color(0xF5CBA7));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
 
-            for (int i = 0; i < 15; i++){
+            for (Ingredient i: generator.getallIngredients()){
                 JButton button = new JButton();
-                // button.setFont(new Font("Calibri", Font.PLAIN, 14));
-                // button.setBackground(new Color(0xA52A2A));
-                // button.setForeground(Color.white);
-
-                button.setUI(new IngredientButton());
+                button.setUI(new IngredientButton(i.getImage()));
                 add(button);
             }
         }
@@ -80,18 +75,6 @@ public class GUIHandler{
         private JLabel description;
         
         public orderPanel(){
-            // setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            // setBackground(Color.yellow);
-            // setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
-
-            // title = new JLabel("Order");
-            // title.setFont(new Font("Helvetica", Font.BOLD, 24));
-            // title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            // description = new JLabel("Descrip");
-
-            // add(title);
-            // add(description);
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBackground(new Color(0xF7F9F9));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
@@ -127,19 +110,6 @@ public class GUIHandler{
             description = new JLabel("food");
 
             add(title);
-            // add(description);
-
-            // try
-            // {
-            //     BufferedImage image = ImageIO.read(new File("images/daddy_burgertest.png"));
-            //     Image img = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-            //     JLabel picLabel = new JLabel(new ImageIcon(img));
-            //     add(picLabel);
-            // }
-            // catch (IOException e)
-            // {
-            //     e.printStackTrace();
-            // }
         }
 
         public void displayFood(Recipe recipe){

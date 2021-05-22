@@ -3,20 +3,21 @@ import java.util.ArrayList;
 public class Recipe {
 
     private String name;
-    private ArrayList<Ingredient> ingredientsAndSauces;
+    private ArrayList<Ingredient> ingredients;
 
     public Recipe(String name){
         this.name = name;
-        ingredientsAndSauces = new ArrayList<Ingredient>();
+        ingredients = new ArrayList<Ingredient>();
     }
+
     public Recipe() {
-        ingredientsAndSauces = new ArrayList<Ingredient>();
+        ingredients = new ArrayList<Ingredient>();
     }
 
     public String toString(){
         String recipe = "Name: " + name;
         recipe += "\nIngredients and Sauces: ";
-        for (Ingredient s: ingredientsAndSauces)
+        for (Ingredient s: ingredients)
         {
             recipe += s + " ";
         }
@@ -24,16 +25,16 @@ public class Recipe {
     }
 
     public void addIngredient(int i, Ingredient s){
-        ingredientsAndSauces.add(i, s);
+        ingredients.add(i, s);
     }
 
     public void addIngredient(Ingredient s)
     {
-        ingredientsAndSauces.add(s);
+        ingredients.add(s);
     }
 
-    public ArrayList<Ingredient> getIngredientsAndSauces()
+    public ArrayList<Ingredient> getIngredients()
     {
-        return ingredientsAndSauces;
+        return ingredients;
     }
 }
