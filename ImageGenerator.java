@@ -1,8 +1,6 @@
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
 
 /**
  *  This class generates all the image based stuff
@@ -16,7 +14,11 @@ public class ImageGenerator {
     public ImageGenerator(){
 
     } 
+    
     public BufferedImage foodImage(Recipe r){
-        return null;
+        BufferedImage newimg = new BufferedImage(200,100,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics =newimg.createGraphics();
+        graphics.fillOval(20,20,40,40);
+        return newimg;
     }
 }

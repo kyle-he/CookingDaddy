@@ -1,19 +1,30 @@
-// import javax.swing.JFrame;
-// import javax.swing.JButton;
-// import java.awt.GridLayout;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class GUIHandler{
+    public scoreCard scoreCard;
+    public buildingPanel buildingPanel;
+    public orderPanel orderPanel;
+    public ingredientPanel ingredientPanel;
+
+    private ImageGenerator imageGenerator;
     
     public GUIHandler() {
+        imageGenerator = new ImageGenerator();
         initUI();
     }
 
@@ -27,10 +38,10 @@ public class GUIHandler{
         frame.setContentPane(contentPane);
 
         JPanel gamePanel = new JPanel(new GridLayout(1, 4, 5, 5));
-        scoreCard scoreCard = new scoreCard();
-        buildingPanel buildingPanel = new buildingPanel();
-        orderPanel orderPanel = new orderPanel();
-        ingredientPanel ingredientPanel = new ingredientPanel();
+        scoreCard = new scoreCard();
+        buildingPanel = new buildingPanel();
+        orderPanel = new orderPanel();
+        ingredientPanel = new ingredientPanel();
 
         gamePanel.add(scoreCard);
         gamePanel.add(buildingPanel);
@@ -118,21 +129,24 @@ public class GUIHandler{
             add(title);
             // add(description);
 
-            try
-            {
-                BufferedImage image = ImageIO.read(new File("images/daddy_burgertest.png"));
-                Image img = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-                JLabel picLabel = new JLabel(new ImageIcon(img));
-                add(picLabel);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            // try
+            // {
+            //     BufferedImage image = ImageIO.read(new File("images/daddy_burgertest.png"));
+            //     Image img = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            //     JLabel picLabel = new JLabel(new ImageIcon(img));
+            //     add(picLabel);
+            // }
+            // catch (IOException e)
+            // {
+            //     e.printStackTrace();
+            // }
         }
 
         public void displayFood(Recipe recipe){
-            description.setText(recipe.toString());
+            BufferedImage image = imageGenerator.foodImage(recipe);
+            Image img = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            JLabel picLabel = new JLabel(new ImageIcon(img));
+            add(picLabel);
         }
     }
 
