@@ -27,34 +27,34 @@ public class Recipe {
         ingredients = new ArrayList<Ingredient>();
     }
 
-    /**
-     * Compares one Recipe to another that has more ingredients.
-     * @param r Recipe to compare to
-     * @return 1 if the Recipes are different, 0 if they are exactly the same,
-     * and -1 otherwise
-     */
-    public int compareTo(Recipe r)
-    {
-        for (int i = 0; i < ingredients.size(); i++)
-        {
-            if (!ingredients.get(i).toString().equals(r.ingredients.get(i).toString()))
-            {
-                return 1;
-            }
-        }
-        if (ingredients.size() == r.ingredients.size())
-        {
-            return 0;
-        }
-        return -1;
-    }
+//    /**
+//     * Compares one Recipe to another that has more ingredients.
+//     * @param r Recipe to compare to
+//     * @return 1 if the Recipes are different, 0 if they are exactly the same,
+//     * and -1 otherwise
+//     */
+//    public int compareTo(Recipe r)
+//    {
+//        for (int i = 0; i < ingredients.size(); i++)
+//        {
+//            if (!ingredients.get(i).toString().equals(r.ingredients.get(i).toString()))
+//            {
+//                return 1;
+//            }
+//        }
+//        if (ingredients.size() == r.ingredients.size())
+//        {
+//            return 0;
+//        }
+//        return -1;
+//    }
 
     /**
      * {@inheritDoc}
      */
     public String toString(){
         String recipe = "Name: " + name;
-        recipe += "\nIngredients and Sauces: ";
+        recipe += "\nIngredients: ";
         for (Ingredient s: ingredients)
         {
             recipe += s + " ";

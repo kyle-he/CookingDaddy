@@ -1,9 +1,8 @@
 /**
- *  Write a one-sentence summary of your class here.
- *  Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ *  Builds an Order according to a goal.
  *
  *  @author Angela Jiao
+ *  @author Kyle He
  *  @version May 17, 2021
  */
 public class OrderBuilder
@@ -12,6 +11,10 @@ public class OrderBuilder
     private Order goal;
     private int index;
 
+    /**
+     * Create a new OrderBuilder object.
+     * @param g goal Order
+     */
     public OrderBuilder(Order g)
     {
         goal = g;
@@ -19,13 +22,28 @@ public class OrderBuilder
         index = 0;
     }
 
+    /**
+     * Adds a given Ingredient to the current Order if it is correct (matches
+     * the goal).
+     * @param i Ingredient to add
+     * @return true if the added Ingredient is correct, false if not
+     */
     public boolean build(Ingredient i)
     {
-        if (i.getType().equals("drink"))
+        if (i.getType() == Ingredient.Type.DRINK)
         {
             if (i.equals(goal.getDrink()))
             {
                 current.addDrink(i);
+                return true;
+            }
+            return false;
+        }
+        if (i.getType() == Ingredient.Type.SAUCE)
+        {
+            if (goal.getSauces().contains(i))
+            {
+                current.addSauce(i);
                 return true;
             }
             return false;
@@ -37,5 +55,14 @@ public class OrderBuilder
             return true;
         }
         return false;
+    }
+
+    /**
+     * Gets the index, which is where the next Ingredient will be added.
+     * @return index
+     */
+    public int getIndex()
+    {
+        return index;
     }
 }
