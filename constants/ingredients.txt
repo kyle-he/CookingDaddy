@@ -1,4 +1,11 @@
-beef patty
+bun top
+bun bottom
 lettuce
 cheese
-tomato
+beef patty
+chicken patty
+veggie patty
+tomatoes
+onions
+cucumbers
+pickles

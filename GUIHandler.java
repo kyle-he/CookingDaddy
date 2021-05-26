@@ -55,7 +55,7 @@ public class GUIHandler{
 
         frame.setVisible(true);
         
-        orderPanel.displayOrder(generator.generateOrder());
+        orderPanel.displayOrder(generator.generateOrder(1));
     }    
 
     private class ingredientPanel extends JPanel{
@@ -64,9 +64,8 @@ public class GUIHandler{
             setBackground(new Color(0xF5CBA7));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
 
-            for (Ingredient i: generator.getallIngredients()){
-                JButton button = new JButton();
-                button.setUI(new IngredientButton(i.getImage()));
+            for (Ingredient i: generator.getAllIngredients()){
+                IngredientButton button = new IngredientButton(i.getImage());
                 add(button);
             }
         }
@@ -119,7 +118,7 @@ public class GUIHandler{
         }
 
         public void displayFood(Recipe recipe){
-            BufferedImage image = imageGenerator.foodImage(recipe);
+            BufferedImage image = imageGenerator.generateFoodImage(recipe, 200);
             Image img = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
             JLabel picLabel = new JLabel(new ImageIcon(img));
             add(picLabel);

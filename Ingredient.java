@@ -53,6 +53,7 @@ public class Ingredient {
         }
         catch (IOException e)
         {
+            System.out.println(getImagePath());
             e.printStackTrace();
         }
     }
