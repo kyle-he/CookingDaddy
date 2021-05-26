@@ -40,6 +40,9 @@ class IngredientButton extends BasicButtonUI {
     private void paintBackground (Graphics g, JComponent c, int sizeIncrease){
         
         Dimension size = c.getSize();
-        g.drawImage(buttonImage, -1*sizeIncrease/2, -1*sizeIncrease/2, size.width + sizeIncrease, size.height + sizeIncrease, null);
+        int imageHeight = buttonImage.getHeight();
+        int imageWidth = buttonImage.getWidth();
+
+        g.drawImage(buttonImage, -1*sizeIncrease/2, -1*sizeIncrease/2, size.height*imageWidth/imageHeight + sizeIncrease, size.height + sizeIncrease, null);
     }
 }

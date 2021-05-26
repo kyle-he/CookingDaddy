@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -52,8 +53,9 @@ public class GUIHandler{
         frame.add(gamePanel);
         frame.add(ingredientPanel);
 
-
         frame.setVisible(true);
+        
+        orderPanel.displayOrder(generator.generateOrder());
     }    
 
     private class ingredientPanel extends JPanel{
@@ -86,10 +88,14 @@ public class GUIHandler{
 
             add(title);
             add(description);
+            add( Box.createVerticalStrut(20));
         }
 
         public void displayOrder(Order order){
             title.setText(order.getCustomerName() + "'s Order");
+            Recipe recipe = order.getRecipe();
+            JLabel picLabel = new JLabel(new ImageIcon(imageGenerator.generateFoodImage(recipe, getSize().width)));
+            add(picLabel);
             description.setText(order.toString());
         }
     }
