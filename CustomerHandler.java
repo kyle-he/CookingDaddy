@@ -21,13 +21,13 @@ public class CustomerHandler
         customerQueue = new LinkedList<>();
     }
 
-    public void addCustomer()
+    public void addCustomer(int level)
     {
         Generator g = new Generator();
-        Order o = g.generateOrder();
+        Order o = g.generateOrder(level);
         while (pastOrders.contains(o))
         {
-            o = g.generateOrder();
+            o = g.generateOrder(level);
         }
         pastOrders.add(o);
         Customer c = new Customer(o);

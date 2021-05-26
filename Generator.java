@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *  This class generates all the text based stuff
@@ -28,19 +29,23 @@ public class Generator {
         allDrinks = loadIngredientFile("drinks", Ingredient.Type.DRINK);
     }
 
-    public Recipe generateRecipe(){
+    public Recipe generateRecipe(int level){
         Recipe recipe = new Recipe(generateRecipeName());
-        for (int i = 0; i < Math.max(allSauces.size(), allIngredients.size()); i++)
+        for (int i = 0; i < level * 2; i++)
         {
-            if (i < allIngredients.size() && Math.random() > 0.5)
-            {
-                recipe.addIngredient(0, allIngredients.get(i));
-            }
-            if (i < allSauces.size() && Math.random() > 0.5)
-            {
-                recipe.addIngredient(0, allSauces.get(i));
-            }
+            recipe.addIngredient(getRandom(allIngredients));
         }
+//        for (int i = 0; i < Math.max(allSauces.size(), allIngredients.size()); i++)
+//        {
+//            if (i < allIngredients.size() && Math.random() > 0.5)
+//            {
+//                recipe.addIngredient(0, allIngredients.get(i));
+//            }
+//            if (i < allSauces.size() && Math.random() > 0.5)
+//            {
+//                recipe.addIngredient(0, allSauces.get(i));
+//            }
+//        }
 
         // TODO: think of better way to handle bread
         // recipe.addIngredient(0, "bun");
@@ -56,9 +61,14 @@ public class Generator {
         return String.format("%s's %s Burger", name, adjective);
     }
 
-    public Order generateOrder()
+    public Order generateOrder(int level)
     {
-        Order o = new Order(generateCustomerName(), getRandom(allDrinks), generateRecipe());
+        HashSet<Ingredient> sauces = new HashSet<>();
+        for (Ingredient i: allSauces)
+        {
+            sauces.add(getRandom(allSauces));
+        }
+        Order o = new Order(generateCustomerName(), getRandom(allDrinks), sauces, generateRecipe(level));
         return o;
     }
 
@@ -94,7 +104,7 @@ public class Generator {
         return list;
     }
 
-    public ArrayList<Ingredient> getallIngredients(){
+    public ArrayList<Ingredient> getAllIngredients(){
         return allIngredients;
     }
 
