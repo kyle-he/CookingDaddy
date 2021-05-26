@@ -65,4 +65,9 @@ public class OrderBuilder
     {
         return index;
     }
+
+    public Order getCurrent()
+    {
+        return current;
+    }
 }

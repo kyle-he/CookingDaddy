@@ -3,6 +3,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -24,17 +26,22 @@ public class GUIHandler{
 
     private ImageGenerator imageGenerator;
     private Generator generator;
-    
+    private CustomerHandler ch;
+    private int level = 1;
+    private Customer currCustomer;
+    private OrderBuilder ob;
+
     public GUIHandler() {
         imageGenerator = new ImageGenerator();
         generator = new Generator();
+        ch = new CustomerHandler();
         initUI();
     }
 
     private void initUI() {
         JFrame frame = new JFrame("Cooking Daddy");
         frame.setSize(1000,1000);
-        
+
         JPanel contentPane =  new JPanel();
         contentPane.setLayout(new GridLayout(2, 1, 5, 5));
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -54,9 +61,12 @@ public class GUIHandler{
         frame.add(ingredientPanel);
 
         frame.setVisible(true);
-        
-        orderPanel.displayOrder(generator.generateOrder());
-    }    
+
+        ch.addCustomer(level);
+        currCustomer = ch.getCustomer();
+        ob = new OrderBuilder(currCustomer.getOrder());
+        orderPanel.displayCustomer(currCustomer);
+    }
 
     private class ingredientPanel extends JPanel{
         public ingredientPanel(){
@@ -64,8 +74,22 @@ public class GUIHandler{
             setBackground(new Color(0xF5CBA7));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
 
-            for (Ingredient i: generator.getallIngredients()){
+            for (final Ingredient i: generator.getAllIngredients()){
                 JButton button = new JButton();
+                button.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (ob.build(i)) //clicked the right ingredient
+                        {
+                            //TODO: gui stuff
+                        }
+                        else
+                        {
+                            //TODO: gui stuff
+                        }
+                    }
+                });
                 button.setUI(new IngredientButton(i.getImage()));
                 add(button);
             }
@@ -75,7 +99,7 @@ public class GUIHandler{
     private class orderPanel extends JPanel{
         private JLabel title;
         private JLabel description;
-        
+
         public orderPanel(){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBackground(new Color(0xF7F9F9));
@@ -91,19 +115,19 @@ public class GUIHandler{
             add( Box.createVerticalStrut(20));
         }
 
-        public void displayOrder(Order order){
-            title.setText(order.getCustomerName() + "'s Order");
-            Recipe recipe = order.getRecipe();
+        public void displayCustomer(Customer c){
+            title.setText(c.getCustomerName() + "'s Order");
+            Recipe recipe = c.getOrder().getRecipe();
             JLabel picLabel = new JLabel(new ImageIcon(imageGenerator.generateFoodImage(recipe, getSize().width)));
             add(picLabel);
-            description.setText(order.toString());
+            description.setText(c.getOrder().toString()); //TODO: fix spacing
         }
     }
 
     private class buildingPanel extends JPanel{
         private JLabel title;
         private JLabel description;
-        
+
         public buildingPanel(){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBackground(new Color(0xFCF3CF));

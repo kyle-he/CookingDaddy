@@ -34,6 +34,11 @@ public class CustomerHandler
         customerQueue.add(c);
     }
 
+    public Customer getCustomer()
+    {
+        return customerQueue.remove();
+    }
+
     public String toString()
     {
         String output = "";
