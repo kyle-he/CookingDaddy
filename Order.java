@@ -8,21 +8,18 @@ import java.util.HashSet;
  */
 public class Order
 {
-    private String customerName;
     private Ingredient drink;
     private HashSet<Ingredient> sauces;
     private Recipe recipe;
 
     /**
-     * Create a new Order object with 4 parameters.
-     * @param name customer name
+     * Create a new Order object with 3 parameters.
      * @param d drink
      * @param s sauces
      * @param r recipe
      */
-    public Order(String name, Ingredient d, HashSet<Ingredient> s, Recipe r)
+    public Order(Ingredient d, HashSet<Ingredient> s, Recipe r)
     {
-        customerName = name;
         drink = d;
         drink.setType(Ingredient.Type.DRINK);
         sauces = s;
@@ -81,15 +78,6 @@ public class Order
     public Recipe getRecipe()
     {
         return recipe;
-    }
-
-    /**
-     * Gets the name of the customer.
-     * @return customerName
-     */
-    public String getCustomerName()
-    {
-        return customerName;
     }
 
     /**

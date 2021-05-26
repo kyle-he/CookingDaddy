@@ -24,6 +24,8 @@ public class Customer
     public Customer(Order o)
     {
         order = o;
+        Generator g = new Generator();
+        customerName = g.generateCustomerName();
 //        allCustomerNames = loadFile("customers");
 //        customerName = allCustomerNames.get((int)(Math.random() * allCustomerNames.size()));
     }
@@ -46,20 +48,21 @@ public class Customer
         return customerName;
     }
 
-    public ArrayList<String> loadFile(String name){
-        ArrayList<String> list = new ArrayList<String>();
-        try {
-            try(BufferedReader br = new BufferedReader(new FileReader("constants/" + name + ".txt"))) {
-                String line = br.readLine();
 
-                while (line != null) {
-                    list.add(line);
-                    line = br.readLine();
-                }
-            }
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
-        return list;
-    }
+//    public ArrayList<String> loadFile(String name){
+//        ArrayList<String> list = new ArrayList<String>();
+//        try {
+//            try(BufferedReader br = new BufferedReader(new FileReader("constants/" + name + ".txt"))) {
+//                String line = br.readLine();
+//
+//                while (line != null) {
+//                    list.add(line);
+//                    line = br.readLine();
+//                }
+//            }
+//        } catch (IOException ex) {
+//            System.out.println(ex);
+//        }
+//        return list;
+//    }
 }

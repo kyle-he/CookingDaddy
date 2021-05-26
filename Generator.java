@@ -31,6 +31,7 @@ public class Generator {
 
     public Recipe generateRecipe(int level){
         Recipe recipe = new Recipe(generateRecipeName());
+        recipe.addIngredient(new Ingredient("bun bottom", Ingredient.Type.FOOD));
         for (int i = 0; i < level * 2; i++)
         {
             recipe.addIngredient(getRandom(allIngredients));
@@ -47,6 +48,7 @@ public class Generator {
 //            }
 //        }
 
+        recipe.addIngredient(new Ingredient("bun top", Ingredient.Type.FOOD));
         // TODO: think of better way to handle bread
         // recipe.addIngredient(0, "bun");
         // recipe.addIngredient(recipe.getIngredientsAndSauces().size(), "bun");
@@ -68,7 +70,7 @@ public class Generator {
         {
             sauces.add(getRandom(allSauces));
         }
-        Order o = new Order(generateCustomerName(), getRandom(allDrinks), sauces, generateRecipe(level));
+        Order o = new Order(getRandom(allDrinks), sauces, generateRecipe(level));
         return o;
     }
 
