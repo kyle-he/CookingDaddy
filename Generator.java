@@ -5,31 +5,29 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- *  This class generates all the text based stuff
+ *  Static class that stores methods for generating various components.
  *
  *  @author Kyle He
+ *  @author Angela Jiao
  *  @version May 13, 2021
  */
-public class Generator {
-    private ArrayList<String> allNames;
-    private ArrayList<String> allLastNames;
-    private ArrayList<String> allAdjectives;
+public final class Generator {
+    private static ArrayList<String> allNames = loadFile("names");
+    private static ArrayList<String> allLastNames = loadFile("last_names");
+    private static ArrayList<String> allAdjectives = loadFile("adjective");
 
-    private ArrayList<Ingredient> allDrinks;
-    private ArrayList<Ingredient> allSauces;
-    private ArrayList<Ingredient> allIngredients;
+    private static ArrayList<Ingredient> allDrinks = loadIngredientFile("drinks", Ingredient.Type.DRINK);
+    private static ArrayList<Ingredient> allSauces = loadIngredientFile("sauces", Ingredient.Type.SAUCE);
+    private static ArrayList<Ingredient> allIngredients = loadIngredientFile("ingredients", Ingredient.Type.FOOD);
 
-    public Generator(){
-        allNames = loadFile("names");
-        allLastNames = loadFile("last_names");
-        allAdjectives = loadFile("adjective");
+    private Generator(){}
 
-        allIngredients = loadIngredientFile("ingredients", Ingredient.Type.FOOD);
-        allSauces = loadIngredientFile("sauces", Ingredient.Type.SAUCE);
-        allDrinks = loadIngredientFile("drinks", Ingredient.Type.DRINK);
-    }
-
-    public Recipe generateRecipe(int level){
+    /**
+     * Generates a recipe at a given difficulty level. All recipes contain a top and bottom bun.
+     * @param level difficulty level
+     * @return recipe
+     */
+    public static Recipe generateRecipe(int level){
         Recipe recipe = new Recipe(generateRecipeName());
         recipe.addIngredient(new Ingredient("bun bottom", Ingredient.Type.FOOD));
         for (int i = 0; i < level * 2; i++)
@@ -56,14 +54,23 @@ public class Generator {
         return recipe;
     }
 
-    public String generateRecipeName(){
+    /**
+     * Generates a recipe name.
+     * @return a recipe name
+     */
+    public static String generateRecipeName(){
         String name = getRandom(allNames);
         String adjective = getRandom(allAdjectives);
 
         return String.format("%s's %s Burger", name, adjective);
     }
 
-    public Order generateOrder(int level)
+    /**
+     * Generates an order at a given difficulty level with a drink, a set of sauces, and a recipe.
+     * @param level difficulty level
+     * @return order
+     */
+    public static Order generateOrder(int level)
     {
         HashSet<Ingredient> sauces = new HashSet<>();
         for (Ingredient i: allSauces)
@@ -74,11 +81,21 @@ public class Generator {
         return o;
     }
 
-    public String generateCustomerName(){
+    /**
+     * Generates a customer name (first and last).
+     * @return customer name
+     */
+    public static String generateCustomerName(){
         return getRandom(allNames) + " " + getRandom(allLastNames);
     }
 
-    public ArrayList<Ingredient> loadIngredientFile(String name, Ingredient.Type type){
+    /**
+     * Loads a given ingredient file into an ArrayList.
+     * @param name name of file
+     * @param type ingredient type
+     * @return ArrayList of Ingredients containing the contents of the file
+     */
+    public static ArrayList<Ingredient> loadIngredientFile(String name, Ingredient.Type type){
         ArrayList<String> list = loadFile(name);
         ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 
@@ -89,7 +106,12 @@ public class Generator {
         return ingredientList;
     }
 
-    public ArrayList<String> loadFile(String name){
+    /**
+     * Loads a given file into an ArrayList.
+     * @param name name of file
+     * @return ArrayList of Strings containing the contents of the file
+     */
+    public static ArrayList<String> loadFile(String name){
         ArrayList<String> list = new ArrayList<String>();
         try {
             try(BufferedReader br = new BufferedReader(new FileReader("constants/" + name + ".txt"))) {
@@ -106,11 +128,15 @@ public class Generator {
         return list;
     }
 
-    public ArrayList<Ingredient> getAllIngredients(){
+    /**
+     * Gets allIngredients.
+     * @return allIngredients
+     */
+    public static ArrayList<Ingredient> getAllIngredients(){
         return allIngredients;
     }
 
-    private <T> T getRandom(ArrayList<T> list){
+    private static <T> T getRandom(ArrayList<T> list){
        return list.get((int) (Math.random() * list.size()));
     }
 }
