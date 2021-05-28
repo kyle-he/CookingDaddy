@@ -17,10 +17,16 @@ public class MenuScreen implements ActionListener {
     private JFrame frame; 
     private JTextField textField;
 
+    /**
+     * Constructor
+     */
     public MenuScreen(){
         displayMenu();
     }
 
+    /**
+     * Display Menu
+     */
     public void displayMenu(){
         frame = new JFrame("Cooking Daddy");
         frame.setSize(1000,1000);

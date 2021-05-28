@@ -20,6 +20,11 @@ import java.awt.RenderingHints;
 class IngredientButton extends JButton implements ActionListener {
     private Ingredient ingredient;
 
+    /**
+     * Constructor
+     * 
+     * @param ingredient ingredient
+     */
     public IngredientButton(Ingredient ingredient){
         this.ingredient = ingredient;
 
@@ -27,6 +32,9 @@ class IngredientButton extends JButton implements ActionListener {
         addActionListener(this);
     }
 
+    /**
+     * Button Clicked
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         GameHandler.addIngredient(ingredient);

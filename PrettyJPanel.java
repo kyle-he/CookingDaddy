@@ -5,12 +5,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 class PrettyJPanel extends JPanel{
+    /**
+     * Style
+     */
     public enum Type
     {
         TRANSPARENT,
         OUTLINED
     }
 
+    /**
+     * Constructor 
+     * 
+     * @param types styles to adopt
+     */
     public PrettyJPanel(Type... types){
         for (Type t: types){
             switch(t){

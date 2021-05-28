@@ -9,7 +9,17 @@ import java.util.ArrayList;
  *  @author Kyle He
  *  @version May 13, 2021
  */
-public final class ImageGenerator {    
+public final class ImageGenerator {  
+    
+    
+    /**
+     * Generate food image
+     *  
+     * @param recipe recipe
+     * @param imageWidth width
+     * @param imageHeight height
+     * @return
+     */
     public static BufferedImage generateFoodImage(Recipe recipe, int imageWidth, int imageHeight){
         
         int burgerHeight = Math.max(getTotalHeight(recipe.getIngredients(), imageWidth), imageHeight);
@@ -32,6 +42,14 @@ public final class ImageGenerator {
         return foodImage;
     }
 
+    /**
+     * Generate sauce image
+     *  
+     * @param order order
+     * @param imageWidth width
+     * @param imageHeight height
+     * @return
+     */
     public static BufferedImage generateSauceImage(Order order, int imageWidth, int imageHeight){
         BufferedImage sauceImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = sauceImage.createGraphics();
@@ -47,6 +65,14 @@ public final class ImageGenerator {
         return sauceImage;
     }
 
+    /**
+     * Generate drink image
+     *  
+     * @param order order
+     * @param imageWidth width
+     * @param imageHeight height
+     * @return
+     */
     public static BufferedImage generateDrinkImage(Order order, int imageWidth, int imageHeight){
         // not the best way to convert from buffered image to image, but the best without any external packages
         BufferedImage sauceImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);

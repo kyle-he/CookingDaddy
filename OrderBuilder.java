@@ -68,11 +68,21 @@ public class OrderBuilder
         return index;
     }
 
+    /**
+     * get current order
+     * 
+     * @return current
+     */
     public Order getCurrent()
     {
         return current;
     }
 
+    /**
+     * get current goal
+     * 
+     * @return goal
+     */
     public Order getGoal()
     {
         return goal;

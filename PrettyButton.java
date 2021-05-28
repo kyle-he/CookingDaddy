@@ -16,6 +16,9 @@ import javax.swing.plaf.basic.BasicButtonUI;
  */
 class PrettyButton extends JButton{
 
+    /**
+     * Constructor
+     */
     public PrettyButton(){
         setFont(new Font("Helvetica", Font.PLAIN, 36));
         setBackground(new Color(0xff8c00));

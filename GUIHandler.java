@@ -13,12 +13,38 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ *  This class handles all the graphics
+ *
+ *  @author Kyle He
+ *  @version May 13, 2021
+ */
 public class GUIHandler{
+    /**
+     * Scorecard
+     */
     public scoreCard scoreCard;
+
+    /**
+     * Building workspace
+     */
     public buildingPanel buildingPanel;
+
+    /**
+     * Orderpanel
+     */
     public orderPanel orderPanel;
+
+    /**
+     * Ingredientpanel
+     */
     public ingredientPanel ingredientPanel;
 
+    /**
+     * GUI Hanlder
+     * 
+     * @param frame window frame
+     */
     public GUIHandler(JFrame frame) {
         initUI(frame);
     }
@@ -53,6 +79,9 @@ public class GUIHandler{
         ingredientPanel.setVisible();
     }
 
+    /**
+     * IngredientPanel
+     */
     class ingredientPanel extends PrettyJPanel{
         public ingredientPanel(){
             super(PrettyJPanel.Type.OUTLINED);
@@ -98,6 +127,9 @@ public class GUIHandler{
         }
     }
 
+    /**
+     * OrderPanel class
+     */
     class orderPanel extends PrettyJPanel{
         private JLabel title;
         private JLabel foodImage = new JLabel();
@@ -148,6 +180,9 @@ public class GUIHandler{
         }
     }
 
+    /**
+     * BuildingPanel class
+     */
     class buildingPanel extends PrettyJPanel{
         private JLabel title;
         private JLabel foodImage = new JLabel();
@@ -214,6 +249,9 @@ public class GUIHandler{
         }
     }
 
+    /**
+     * Scorecard class
+     */
     class scoreCard extends PrettyJPanel{
         private JLabel balance;
         private JLabel level;

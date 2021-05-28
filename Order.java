@@ -34,14 +34,6 @@ public class Order
         cost = (int)(cost * 1.5);
     }
 
-//    public Order(Order o)
-//    {
-//        drink = o.getDrink();
-//        sauces = new HashSet<Ingredient>(o.getSauces());
-//        recipe = o.getRecipe();
-//        cost = o.getCost();
-//    }
-
     /**
      * Create a new Order object with no parameters.
      */
@@ -116,11 +108,6 @@ public class Order
         drink.setType(Ingredient.Type.DRINK);
     }
 
-//    public void removeDrink()
-//    {
-//        drink = null;
-//    }
-
     /**
      * Adds a sauce.
      * @param s sauce to add
@@ -130,11 +117,6 @@ public class Order
         s.setType(Ingredient.Type.SAUCE);
         sauces.add(s);
     }
-
-//    public void removeSauce(Ingredient s)
-//    {
-//        sauces.remove(s);
-//    }
 
     public int calculateCost()
     {
