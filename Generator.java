@@ -62,7 +62,7 @@ public final class Generator {
      */
     public static Order generateOrder(int level)
     {
-        ArrayList<Ingredient> sauces = new ArrayList<Ingredient>();
+        HashSet<Ingredient> sauces = new HashSet<Ingredient>();
         for (int i = 0; i < Math.min(level*2, 4); i++)
         {
             sauces.add(getRandom(allSauces));
