@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /**
  *  Builds an Order according to a goal.
  *
@@ -10,6 +12,8 @@ public class OrderBuilder
     private Order current;
     private Order goal;
     private int index;
+    private boolean drinkDone;
+    private HashSet<Ingredient> sauceDone;
 
     /**
      * Create a new OrderBuilder object.
@@ -20,6 +24,7 @@ public class OrderBuilder
         goal = g;
         current = new Order();
         index = 0;
+        sauceDone = new HashSet<>();
     }
 
     /**
@@ -30,20 +35,22 @@ public class OrderBuilder
      */
     public boolean build(Ingredient i)
     {
-        if (i.getType() == Ingredient.Type.DRINK)
+        if (!drinkDone && i.getType() == Ingredient.Type.DRINK)
         {
             if (i.equals(goal.getDrink()))
             {
                 current.addDrink(i);
+                drinkDone = true;
                 return true;
             }
             return false;
         }
         if (i.getType() == Ingredient.Type.SAUCE)
         {
-            if (goal.getSauces().contains(i))
+            if (!sauceDone.contains(i) && goal.getSauces().contains(i))
             {
                 current.addSauce(i);
+                sauceDone.add(i);
                 return true;
             }
             return false;
