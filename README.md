@@ -1,1 +1,1 @@
-# do not read code. if you do, here is the (medicine)[https://www.walgreens.com/store/c/clorox-disinfecting-bleach,-concentrated-formula-regular/ID=300405991-product?ext=gooKBM_PLA+-+Household+(2019+Update)Household__pla_online&gclsrc=aw.ds&] for your eyes.
+# do not read code. if you do, here is the [medicine](https://www.walgreens.com/store/c/clorox-disinfecting-bleach,-concentrated-formula-regular/ID=300405991-product?ext=gooKBM_PLA+-+Household+(2019+Update)Household__pla_online&gclsrc=aw.ds&) for your eyes.
