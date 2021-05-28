@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -13,8 +12,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 public class GUIHandler{
     public scoreCard scoreCard;
@@ -22,19 +19,12 @@ public class GUIHandler{
     public orderPanel orderPanel;
     public ingredientPanel ingredientPanel;
 
-    private int score = 0;
-    private CustomerHandler ch;
-    private int level = 1;
-    private Customer currCustomer;
-    private OrderBuilder ob;
-
     public GUIHandler(JFrame frame) {
-        ch = new CustomerHandler();
         initUI(frame);
     }
 
     private void initUI(JFrame frame) {
-        frame.setSize(1000,1000);
+        frame.setSize(900,900);
 
         JPanel contentPane =  new JPanel();
         contentPane.setLayout(new GridLayout(2, 1, 5, 5));
