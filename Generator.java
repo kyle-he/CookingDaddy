@@ -14,6 +14,7 @@ import java.util.HashSet;
 public final class Generator {
     private static ArrayList<String> allNames = loadFile("names");
     private static ArrayList<String> allLastNames = loadFile("last_names");
+    private static ArrayList<String> allPlaceNames = loadFile("place_names");
     private static ArrayList<String> allAdjectives = loadFile("adjective");
 
     private static ArrayList<Ingredient> allDrinks = loadIngredientFile("drinks", Ingredient.Type.DRINK);
@@ -145,6 +146,14 @@ public final class Generator {
             System.out.println(ex);
         }
         return list;
+    }
+
+    /**
+     * Gets corresponding location for each balance
+     * @return location name
+     */
+    public static ArrayList<Ingredient> getLocation(int balance){
+        return allIngredients;
     }
 
     /**

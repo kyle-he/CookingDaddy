@@ -30,10 +30,29 @@ public final class ImageGenerator {
         return foodImage;
     }
 
-    public static BufferedImage generateSauceImage(Order order, int width){
+    public static BufferedImage generateSauceImage(Order order, int image_width, int image_height){
+        BufferedImage sauceImage = new BufferedImage(image_width, image_height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = sauceImage.createGraphics();
+
+        int xValue = 0;
         for (Ingredient i: order.getSauces()){
-            System.out.println(i.getName());
+            BufferedImage image = i.getImage();
+            int width = image_height * image.getWidth()/image.getHeight();
+            Image newImage = image.getScaledInstance(width, image_height, Image.SCALE_SMOOTH);
+            
+            graphics.drawImage(newImage, (image_width - xValue) - width, 0, null);
+            xValue += width - 10;
         }
-        return new BufferedImage(width, width, BufferedImage.TYPE_INT_ARGB);
+        return sauceImage;
+    }
+
+    public static BufferedImage generateDrinkImage(Order order, int image_width, int image_height){
+        // not the best way to convert from buffered image to image, but the best without any external packages
+        BufferedImage sauceImage = new BufferedImage(image_width, image_height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = sauceImage.createGraphics();
+        BufferedImage image = order.getDrink().getImage();
+        Image newImage = image.getScaledInstance(image_height * image.getWidth()/image.getHeight(), image_height, Image.SCALE_SMOOTH);
+        graphics.drawImage(newImage, 0, 0, null);
+        return sauceImage;
     }
 }
