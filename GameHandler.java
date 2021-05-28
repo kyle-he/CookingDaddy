@@ -12,6 +12,7 @@ public class GameHandler {
     public static void runGame(JFrame frame){
         ex = new GUIHandler(frame);
         startGame();
+        //e
     }
 
     public static void startGame()
