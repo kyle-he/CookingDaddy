@@ -16,7 +16,7 @@ public class GameHandler
     public static void runGame(JFrame frame, int inputTime)
     {
         time = inputTime;
-        
+
         ex = new GUIHandler(frame);
         ex.scoreCard.displayBalance(coins);
 
@@ -42,7 +42,7 @@ public class GameHandler
         currCustomer = ch.getCustomer();
 
         ob = new OrderBuilder(currCustomer.getOrder());
-        
+
         ex.scoreCard.displayOrder(currCustomer.getOrder());
         ex.orderPanel.displayCustomer(currCustomer);
         ex.buildingPanel.clearDisplay();
@@ -70,10 +70,11 @@ public class GameHandler
 
     public static void checkLevelUp()
     {
-        if (coins > level * 60)
+        if (coins > level * 20)
         {
             level++;
             ex.scoreCard.displayMessage("Level up! You are now at level " + level + "!");
+            ex.scoreCard.displayLevel(level);
         }
         startGame();
     }

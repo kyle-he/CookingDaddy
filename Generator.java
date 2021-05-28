@@ -131,7 +131,7 @@ public final class Generator {
      * @return location name
      */
     public static String getLocation(int level){
-        return allPlaceNames.get(Math.min(level, allPlaceNames.size()-1));
+        return allPlaceNames.get(Math.min(level - 1, allPlaceNames.size()-1));
     }
 
     /**

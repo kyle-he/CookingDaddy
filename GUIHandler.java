@@ -293,13 +293,12 @@ public class GUIHandler{
 
         public void displayBalance(int amount){
             balance.setText("Balance: " + amount + " coins");
-
             repaint();
         }
 
-        public void displayLevel(int level){
-            balance.setText("Level: " + level);
-            location.setText("Venue: " + Generator.getLocation(level));
+        public void displayLevel(int l){
+            level.setText("Level: " + l);
+            location.setText("Venue: " + Generator.getLocation(l));
 
             repaint();
         }
