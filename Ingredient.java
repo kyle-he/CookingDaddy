@@ -37,6 +37,7 @@ public class Ingredient {
     private Type type;
     private String name;
     private BufferedImage image;
+    private BufferedImage buttonImage;
 
     /**
      * Create a new Ingredient object from a given name and type.
@@ -50,10 +51,11 @@ public class Ingredient {
         try
         {
             image = ImageIO.read(new File(getImagePath()));
+            buttonImage = ImageIO.read(new File(getIconImagePath()));
         }
         catch (IOException e)
         {
-            System.out.println(getImagePath());
+            System.out.println(getIconImagePath());
             e.printStackTrace();
         }
     }
@@ -66,6 +68,22 @@ public class Ingredient {
                 break;
             case FOOD:
                 imagePath = "images/food/food_";
+                break;
+            case SAUCE:
+                imagePath = "images/sauce/sauce_";
+                break;
+        }
+        return imagePath + name.replaceAll(" ", "_") + ".png";
+    }
+
+    private String getIconImagePath(){
+        String imagePath = "";
+        switch(type){
+            case DRINK:
+                imagePath = "images/drink/drink_";
+                break;
+            case FOOD:
+                imagePath = "images/icon/icon_";
                 break;
             case SAUCE:
                 imagePath = "images/sauce/sauce_";
@@ -110,12 +128,24 @@ public class Ingredient {
         return type;
     }
 
+    public String getName(){
+        return name;
+    }
+
     /**
      * Gets the associated image.
      * @return image
      */
     public BufferedImage getImage(){
         return image;
+    }
+
+    /**
+     * Gets the associated button image.
+     * @return image
+     */
+    public BufferedImage getButtonImage(){
+        return buttonImage;
     }
 
     /**

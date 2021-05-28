@@ -88,4 +88,13 @@ public class Recipe {
     {
         return ingredients;
     }
+
+    /**
+     * Gets the name of the burger.
+     * @return ingredients
+     */
+    public String getName()
+    {
+        return name;
+    }
 }

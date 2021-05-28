@@ -20,8 +20,6 @@ public final class Generator {
     private static ArrayList<Ingredient> allSauces = loadIngredientFile("sauces", Ingredient.Type.SAUCE);
     private static ArrayList<Ingredient> allIngredients = loadIngredientFile("ingredients", Ingredient.Type.FOOD);
 
-    private Generator(){}
-
     /**
      * Generates a recipe at a given difficulty level. All recipes contain a top and bottom bun.
      * @param level difficulty level
@@ -30,26 +28,17 @@ public final class Generator {
     public static Recipe generateRecipe(int level){
         Recipe recipe = new Recipe(generateRecipeName());
         recipe.addIngredient(new Ingredient("bun bottom", Ingredient.Type.FOOD));
-        for (int i = 0; i < level * 2; i++)
+        for (int i = 0; i < Math.min(level * 3, 8); i++)
         {
-            recipe.addIngredient(getRandom(allIngredients));
+            Ingredient ingredient;
+            do {
+                ingredient = getRandom(allIngredients);
+            } while (ingredient.getName().equals("bun top") || ingredient.getName().equals("bun bottom"));
+
+            recipe.addIngredient(ingredient);
         }
-//        for (int i = 0; i < Math.max(allSauces.size(), allIngredients.size()); i++)
-//        {
-//            if (i < allIngredients.size() && Math.random() > 0.5)
-//            {
-//                recipe.addIngredient(0, allIngredients.get(i));
-//            }
-//            if (i < allSauces.size() && Math.random() > 0.5)
-//            {
-//                recipe.addIngredient(0, allSauces.get(i));
-//            }
-//        }
 
         recipe.addIngredient(new Ingredient("bun top", Ingredient.Type.FOOD));
-        // TODO: think of better way to handle bread
-        // recipe.addIngredient(0, "bun");
-        // recipe.addIngredient(recipe.getIngredientsAndSauces().size(), "bun");
 
         return recipe;
     }
@@ -72,8 +61,8 @@ public final class Generator {
      */
     public static Order generateOrder(int level)
     {
-        HashSet<Ingredient> sauces = new HashSet<>();
-        for (Ingredient i: allSauces)
+        ArrayList<Ingredient> sauces = new ArrayList<Ingredient>();
+        for (int i = 0; i < Math.min(level*2, 4); i++)
         {
             sauces.add(getRandom(allSauces));
         }
@@ -134,6 +123,22 @@ public final class Generator {
      */
     public static ArrayList<Ingredient> getAllIngredients(){
         return allIngredients;
+    }
+
+    /**
+     * Gets allSauces.
+     * @return allSauces
+     */
+    public static ArrayList<Ingredient> getAllSauces(){
+        return allSauces;
+    }
+
+    /**
+     * Gets allDrinks.
+     * @return allDrinks
+     */
+    public static ArrayList<Ingredient> getAllDrinks(){
+        return allDrinks;
     }
 
     private static <T> T getRandom(ArrayList<T> list){

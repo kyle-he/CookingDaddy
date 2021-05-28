@@ -1,4 +1,4 @@
-import java.util.HashSet;
+import java.util.ArrayList;
 
 /**
  * Represents an order consisting of a burger, a drink, and sauces.
@@ -9,7 +9,7 @@ import java.util.HashSet;
 public class Order
 {
     private Ingredient drink;
-    private HashSet<Ingredient> sauces;
+    private ArrayList<Ingredient> sauces;
     private Recipe recipe;
 
     /**
@@ -18,7 +18,7 @@ public class Order
      * @param s sauces
      * @param r recipe
      */
-    public Order(Ingredient d, HashSet<Ingredient> s, Recipe r)
+    public Order(Ingredient d, ArrayList<Ingredient> s, Recipe r)
     {
         drink = d;
         drink.setType(Ingredient.Type.DRINK);
@@ -36,7 +36,7 @@ public class Order
     public Order()
     {
         drink = new Ingredient(Ingredient.Type.DRINK);
-        sauces = new HashSet<>();
+        sauces = new ArrayList<Ingredient>();
         recipe = new Recipe();
     }
 
@@ -66,7 +66,7 @@ public class Order
      * Gets the set of sauces.
      * @return sauces
      */
-    public HashSet<Ingredient> getSauces()
+    public ArrayList<Ingredient> getSauces()
     {
         return sauces;
     }

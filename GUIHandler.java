@@ -24,22 +24,17 @@ public class GUIHandler{
     public orderPanel orderPanel;
     public ingredientPanel ingredientPanel;
 
-    private ImageGenerator imageGenerator;
-    private Generator generator;
     private CustomerHandler ch;
     private int level = 1;
     private Customer currCustomer;
     private OrderBuilder ob;
 
-    public GUIHandler() {
-        imageGenerator = new ImageGenerator();
-        generator = new Generator();
+    public GUIHandler(JFrame frame) {
         ch = new CustomerHandler();
-        initUI();
+        initUI(frame);
     }
 
-    private void initUI() {
-        JFrame frame = new JFrame("Cooking Daddy");
+    private void initUI(JFrame frame) {
         frame.setSize(1000,1000);
 
         JPanel contentPane =  new JPanel();
@@ -70,14 +65,43 @@ public class GUIHandler{
 
     private class ingredientPanel extends JPanel{
         public ingredientPanel(){
-            setLayout(new GridLayout(4, 4, 5, 5));
+            setLayout(new GridLayout(1, 2, 5, 5));
             setBackground(new Color(0xF5CBA7));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
 
-            for (Ingredient i: generator.getAllIngredients()){
-                IngredientButton button = new IngredientButton(i.getImage());
-                add(button);
+            JPanel foodGrid = new JPanel();
+            foodGrid.setLayout(new GridLayout(4, 4, 5, 5));
+            foodGrid.setBackground(new Color(0xF5CBA7));
+            for (Ingredient i: Generator.getAllIngredients()){
+                IngredientButton button = new IngredientButton(i);
+                foodGrid.add(button);
             }
+
+            JPanel otherGrid = new JPanel();
+            otherGrid.setLayout(new GridLayout(1, 2, 0, 0));
+            otherGrid.setBackground(new Color(0xF5CBA7));
+
+            JPanel sauceGrid = new JPanel();
+            sauceGrid.setLayout(new GridLayout(4, 1, 5, 5));
+            sauceGrid.setBackground(new Color(0xF5CBA7));
+            for (Ingredient i: Generator.getAllSauces()){
+                IngredientButton button = new IngredientButton(i);
+                sauceGrid.add(button);
+            }
+
+            JPanel drinkGrid = new JPanel();
+            drinkGrid.setLayout(new GridLayout(4, 1, 5, 5));
+            drinkGrid.setBackground(new Color(0xF5CBA7));
+            for (Ingredient i: Generator.getAllDrinks()){
+                IngredientButton button = new IngredientButton(i);
+                drinkGrid.add(button);
+            }
+
+            otherGrid.add(sauceGrid);
+            otherGrid.add(drinkGrid);
+
+            add(foodGrid);
+            add(otherGrid);
         }
     }
 
@@ -86,26 +110,26 @@ public class GUIHandler{
         private JLabel description;
 
         public orderPanel(){
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            // setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBackground(new Color(0xF7F9F9));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
 
             title = new JLabel("Some Guy's Order");
             title.setFont(new Font("Helvetica", Font.BOLD, 15));
 
-            description = new JLabel("food");
-
             add(title);
-            add(description);
-            add( Box.createVerticalStrut(20));
+            add(Box.createVerticalStrut(20));
         }
 
         public void displayCustomer(Customer c){
             title.setText(c.getCustomerName() + "'s Order");
             Recipe recipe = c.getOrder().getRecipe();
-            JLabel picLabel = new JLabel(new ImageIcon(imageGenerator.generateFoodImage(recipe, getSize().width)));
+            JLabel picLabel = new JLabel(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height - 200)), JLabel.CENTER);
+            picLabel.setHorizontalTextPosition(JLabel.CENTER);
+            picLabel.setVerticalTextPosition(JLabel.BOTTOM);
+            picLabel.setText(c.getOrder().getRecipe().getName());
+
             add(picLabel);
-            description.setText(c.getOrder().toString()); //TODO: fix spacing
         }
     }
 
@@ -120,15 +144,16 @@ public class GUIHandler{
 
             title = new JLabel("Burger in Progress");
             title.setFont(new Font("Helvetica", Font.BOLD, 15));
-            title.setAlignmentX(Component.CENTER_ALIGNMENT);
+            // title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
             description = new JLabel("food");
 
+            add(new timeCountdown());
             add(title);
         }
 
         public void displayFood(Recipe recipe){
-            BufferedImage image = imageGenerator.generateFoodImage(recipe, 200);
+            BufferedImage image = ImageGenerator.generateFoodImage(recipe, 200);
             Image img = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
             JLabel picLabel = new JLabel(new ImageIcon(img));
             add(picLabel);
@@ -153,7 +178,14 @@ public class GUIHandler{
     }
 
     private class timeCountdown extends JProgressBar{
-
+        public timeCountdown(){
+            setValue(40);
+            setBounds(0,0,520,50);
+            setStringPainted(true);
+            setFont(new Font("Helvetica",Font.PLAIN, 25));
+            setForeground(Color.red);
+            setBackground(Color.black);
+        }
     }
 }
 
