@@ -89,35 +89,14 @@ public final class Generator {
         ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 
         for (String s: list){
-            int c = 0;
-            switch (s)
+            int c = 3;
+            if (s.length() < 5)
             {
-                case "bun bottom":
-                    c = 1;
-                    break;
-                case "bun top":
-                    c = 1;
-                    break;
-                case "beef patty":
-                    c = 3;
-                    break;
-                case "chicken patty":
-                    c = 3;
-                    break;
-                case "veggie patty":
-                    c = 3;
-                    break;
-                case "everest dew":
-                    c = 4;
-                    break;
-                case "sunflower nectar":
-                    c = 4;
-                    break;
-                case "water":
-                    c = 0;
-                    break;
-                default:
-                    c = 2;
+                c = 1;
+            }
+            else if (s.length() < 10)
+            {
+                c = 2;
             }
             ingredientList.add(new Ingredient(s, type, c));
         }

@@ -125,6 +125,10 @@ public class Ingredient {
     @Override
     public boolean equals(Object o)
     {
+        if (name == null)
+        {
+            return false;
+        }
         return name.equals(((Ingredient)o).getName());
     }
 

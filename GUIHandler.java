@@ -61,11 +61,6 @@ public class GUIHandler{
         buildingPanel.setVisible();
         orderPanel.setVisible();
         ingredientPanel.setVisible();
-
-        ch.addCustomer(level);
-        currCustomer = ch.getCustomer();
-        ob = new OrderBuilder(currCustomer.getOrder());
-        orderPanel.displayCustomer(currCustomer);
     }
 
     class ingredientPanel extends JPanel{
@@ -207,7 +202,7 @@ public class GUIHandler{
             this.width = width;
             setSize(width, 30);
         }
-        
+
         public void updateFill(int newFill){
             fill = newFill;
         }
@@ -221,7 +216,7 @@ public class GUIHandler{
         }
 
         @Override
-        public void paintComponent(Graphics g) 
+        public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
             g.setColor(new Color(0x181818));
