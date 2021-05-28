@@ -11,6 +11,7 @@ public class Order
     private Ingredient drink;
     private ArrayList<Ingredient> sauces;
     private Recipe recipe;
+    private int cost;
 
     /**
      * Create a new Order object with 3 parameters.
@@ -23,11 +24,15 @@ public class Order
         drink = d;
         drink.setType(Ingredient.Type.DRINK);
         sauces = s;
+        int sauceCost = 0;
         for (Ingredient i: sauces)
         {
             i.setType(Ingredient.Type.SAUCE);
+            sauceCost += i.getCost();
         }
         recipe = r;
+        cost = recipe.getCost() + drink.getCost() + sauceCost;
+        cost = (int)(cost * 1.5);
     }
 
     /**
@@ -38,6 +43,13 @@ public class Order
         drink = new Ingredient(Ingredient.Type.DRINK);
         sauces = new ArrayList<Ingredient>();
         recipe = new Recipe();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        Order o = (Order)obj;
+        return recipe.equals(o.getRecipe()) && drink.equals(o.getDrink()) && sauces.equals(o.getSauces());
     }
 
     /**
@@ -97,5 +109,10 @@ public class Order
     {
         s.setType(Ingredient.Type.SAUCE);
         sauces.add(s);
+    }
+
+    public int getCost()
+    {
+        return cost;
     }
 }

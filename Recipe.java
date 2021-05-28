@@ -11,6 +11,7 @@ public class Recipe {
 
     private String name;
     private ArrayList<Ingredient> ingredients;
+    private int cost;
 
     /**
      * Create a new Recipe object with one parameter.
@@ -48,6 +49,12 @@ public class Recipe {
 //        }
 //        return -1;
 //    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        return ingredients.equals(((Recipe)o).getIngredients());
+    }
 
     /**
      * {@inheritDoc}
@@ -96,5 +103,14 @@ public class Recipe {
     public String getName()
     {
         return name;
+    }
+
+    public int getCost()
+    {
+        for (Ingredient i: ingredients)
+        {
+            cost += i.getCost();
+        }
+        return cost;
     }
 }

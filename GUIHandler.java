@@ -6,15 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
@@ -24,6 +16,7 @@ public class GUIHandler{
     public orderPanel orderPanel;
     public ingredientPanel ingredientPanel;
 
+    private int score = 0;
     private CustomerHandler ch;
     private int level = 1;
     private Customer currCustomer;
@@ -56,14 +49,9 @@ public class GUIHandler{
         frame.add(ingredientPanel);
 
         frame.setVisible(true);
-
-        ch.addCustomer(level);
-        currCustomer = ch.getCustomer();
-        ob = new OrderBuilder(currCustomer.getOrder());
-        orderPanel.displayCustomer(currCustomer);
     }
 
-    private class ingredientPanel extends JPanel{
+    class ingredientPanel extends JPanel{
         public ingredientPanel(){
             setLayout(new GridLayout(1, 2, 5, 5));
             setBackground(new Color(0xF5CBA7));
@@ -105,7 +93,7 @@ public class GUIHandler{
         }
     }
 
-    private class orderPanel extends JPanel{
+    class orderPanel extends JPanel{
         private JLabel title;
         private JLabel description;
 
@@ -133,7 +121,7 @@ public class GUIHandler{
         }
     }
 
-    private class buildingPanel extends JPanel{
+    class buildingPanel extends JPanel{
         private JLabel title;
         private JLabel description;
 
@@ -153,14 +141,14 @@ public class GUIHandler{
         }
 
         public void displayFood(Recipe recipe){
-            BufferedImage image = ImageGenerator.generateFoodImage(recipe, 200);
+            BufferedImage image = ImageGenerator.generateFoodImage(recipe, 200, 200);
             Image img = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
             JLabel picLabel = new JLabel(new ImageIcon(img));
             add(picLabel);
         }
     }
 
-    private class scoreCard extends JPanel{
+    class scoreCard extends JPanel{
         private JLabel title;
 
         public scoreCard(){
@@ -177,7 +165,7 @@ public class GUIHandler{
         }
     }
 
-    private class timeCountdown extends JProgressBar{
+    class timeCountdown extends JProgressBar{
         public timeCountdown(){
             setValue(40);
             setBounds(0,0,520,50);
