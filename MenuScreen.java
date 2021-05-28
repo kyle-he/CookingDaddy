@@ -47,7 +47,7 @@ public class MenuScreen implements ActionListener {
             e.printStackTrace();
         }
 
-        JLabel textLabel = new JLabel("Time of Run: ");
+        JLabel textLabel = new JLabel("Time of Run (seconds): ");
         textLabel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
         mainMenu.add(textLabel);
 

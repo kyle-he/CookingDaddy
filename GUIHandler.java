@@ -127,7 +127,7 @@ public class GUIHandler{
 
             add(title, BorderLayout.NORTH);
             add(Box.createVerticalStrut(20));
-            
+
             foodImage.setHorizontalAlignment(JLabel.CENTER);
             sauceImage.setHorizontalAlignment(JLabel.CENTER);
             drinkImage.setHorizontalAlignment(JLabel.CENTER);
@@ -241,7 +241,7 @@ public class GUIHandler{
 
             PrettyJPanel upperPanel = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
             upperPanel.setLayout(new GridLayout(2,1,0,5));
-            
+
             PrettyJPanel messageCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
             messageCard.setLayout(new BoxLayout(messageCard, BoxLayout.Y_AXIS));
             message = new JLabel("<html>Welcome to the Cooking Daddy! <br>You have " + GameHandler.getTime() + " seconds to make as much money as possible.</html>");
@@ -254,11 +254,11 @@ public class GUIHandler{
 
             PrettyJPanel statsCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
             statsCard.setLayout(new BoxLayout(statsCard, BoxLayout.Y_AXIS));
-            
+
             balance = new JLabel("Balance: 0 coins");
             level = new JLabel("Level: 1");
             location = new JLabel("Venue: Daddy's Garage");
-            
+
             balance.setFont(new Font("Helvetica", Font.BOLD, 15));
             level.setFont(new Font("Helvetica", Font.BOLD, 15));
             location.setFont(new Font("Helvetica", Font.BOLD, 15));
