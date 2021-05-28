@@ -25,12 +25,14 @@ class IngredientButton extends JButton implements ActionListener {
 
         setUI(new IngredientButtonUI(ingredient.getButtonImage()));
         addActionListener(this);
-    } 
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //System.out.println(ingredient.getName());
+        GameHandler.addIngredient(ingredient);
     }
-    
+
     private class IngredientButtonUI extends BasicButtonUI {
         BufferedImage buttonImage;
 
@@ -46,7 +48,7 @@ class IngredientButton extends JButton implements ActionListener {
             button.setBorder(new EmptyBorder(5, 15, 5, 15));
         }
 
-        @Override   
+        @Override
         public void paint (Graphics g, JComponent c){
             AbstractButton b = (AbstractButton) c;
             paintBackground(g, b, b.getModel().isPressed() ? 0 : -10);

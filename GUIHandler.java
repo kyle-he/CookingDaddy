@@ -234,7 +234,7 @@ public class GUIHandler{
             this.width = width;
             setSize(width, 30);
         }
-        
+
         public void updateFill(int newFill){
             fill = newFill;
         }
@@ -248,7 +248,7 @@ public class GUIHandler{
         }
 
         @Override
-        public void paintComponent(Graphics g) 
+        public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
             g.setColor(new Color(0x181818));

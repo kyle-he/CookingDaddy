@@ -70,4 +70,9 @@ public class OrderBuilder
     {
         return current;
     }
+
+    public Order getGoal()
+    {
+        return goal;
+    }
 }

@@ -49,6 +49,10 @@ public class Order
     public boolean equals(Object obj)
     {
         Order o = (Order)obj;
+        if (recipe == null || drink == null || sauces == null)
+        {
+            return false;
+        }
         return recipe.equals(o.getRecipe()) && drink.equals(o.getDrink()) && sauces.equals(o.getSauces());
     }
 
