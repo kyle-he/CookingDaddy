@@ -39,7 +39,6 @@ public final class ImageGenerator {
             BufferedImage image = i.getImage();
             int width = image_height * image.getWidth()/image.getHeight();
             Image newImage = image.getScaledInstance(width, image_height, Image.SCALE_SMOOTH);
-            
             graphics.drawImage(newImage, (image_width - xValue) - width, 0, null);
             xValue += width - 10;
         }
@@ -51,6 +50,9 @@ public final class ImageGenerator {
         BufferedImage sauceImage = new BufferedImage(image_width, image_height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = sauceImage.createGraphics();
         BufferedImage image = order.getDrink().getImage();
+        if (image == null){
+            return sauceImage;
+        }
         Image newImage = image.getScaledInstance(image_height * image.getWidth()/image.getHeight(), image_height, Image.SCALE_SMOOTH);
         graphics.drawImage(newImage, 0, 0, null);
         return sauceImage;
