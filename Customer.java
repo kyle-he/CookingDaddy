@@ -1,18 +1,20 @@
 /**
- *  Represents an individual customer.
+ * Represents an individual customer.
  *
- *  @author Angela Jiao
- *  @author Kyle He
- *  @version May 13, 2021
+ * @author Angela Jiao
+ * @author Kyle He
+ * @version May 13, 2021
  */
 public class Customer
 {
-    private Order order;
+    private Order  order;
     private String customerName;
 
     /**
      * Create a new Customer object from a given order.
-     * @param o order
+     *
+     * @param o
+     *            order
      */
     public Customer(Order o)
     {
@@ -20,8 +22,10 @@ public class Customer
         customerName = Generator.generateCustomerName();
     }
 
+
     /**
      * Gets the order.
+     *
      * @return order
      */
     public Order getOrder()
@@ -29,8 +33,10 @@ public class Customer
         return order;
     }
 
+
     /**
      * Gets the name.
+     *
      * @return customerName
      */
     public String getCustomerName()

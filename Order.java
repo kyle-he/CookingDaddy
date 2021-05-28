@@ -14,7 +14,7 @@ public class Order
     private int cost;
 
     /**
-     * Create a new Order object with 3 parameters.
+     * Create a new Order object with 3 parameters. The cost is calculated and given a multiplier.
      * @param d drink
      * @param s sauces
      * @param r recipe
@@ -24,7 +24,6 @@ public class Order
         drink = d;
         drink.setType(Ingredient.Type.DRINK);
         sauces = s;
-        int sauceCost = 0;
         for (Ingredient i: sauces)
         {
             i.setType(Ingredient.Type.SAUCE);
@@ -118,6 +117,10 @@ public class Order
         sauces.add(s);
     }
 
+    /**
+     * Calculates the cost.
+     * @return cost
+     */
     public int calculateCost()
     {
         int sauceCost = 0;
@@ -128,6 +131,10 @@ public class Order
         return recipe.getCost() + drink.getCost() + sauceCost;
     }
 
+    /**
+     * Gets the cost.
+     * @return cost
+     */
     public int getCost()
     {
         return cost;

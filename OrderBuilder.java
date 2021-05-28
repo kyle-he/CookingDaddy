@@ -1,20 +1,22 @@
 /**
- *  Builds an Order according to a goal.
+ * Builds an Order according to a goal.
  *
- *  @author Angela Jiao
- *  @author Kyle He
- *  @version May 17, 2021
+ * @author Angela Jiao
+ * @author Kyle He
+ * @version May 17, 2021
  */
 public class OrderBuilder
 {
-    private Order current;
-    private Order goal;
-    private int index;
+    private Order   current;
+    private Order   goal;
+    private int     index;
     private boolean drinkDone;
 
     /**
      * Create a new OrderBuilder object.
-     * @param g goal Order
+     *
+     * @param g
+     *            goal Order
      */
     public OrderBuilder(Order g)
     {
@@ -23,10 +25,13 @@ public class OrderBuilder
         index = 0;
     }
 
+
     /**
      * Adds a given Ingredient to the current Order if it is correct (matches
      * the goal).
-     * @param i Ingredient to add
+     *
+     * @param i
+     *            Ingredient to add
      * @return true if the added Ingredient is correct, false if not
      */
     public boolean build(Ingredient i)
@@ -43,7 +48,8 @@ public class OrderBuilder
         }
         if (i.getType() == Ingredient.Type.SAUCE)
         {
-            if (goal.getSauces().contains(i) && !current.getSauces().contains(i))
+            if (goal.getSauces().contains(i)
+                && !current.getSauces().contains(i))
             {
                 current.addSauce(i);
                 return true;
@@ -59,18 +65,10 @@ public class OrderBuilder
         return false;
     }
 
-    /**
-     * Gets the index, which is where the next Ingredient will be added.
-     * @return index
-     */
-    public int getIndex()
-    {
-        return index;
-    }
 
     /**
      * get current order
-     * 
+     *
      * @return current
      */
     public Order getCurrent()
@@ -78,9 +76,10 @@ public class OrderBuilder
         return current;
     }
 
+
     /**
      * get current goal
-     * 
+     *
      * @return goal
      */
     public Order getGoal()

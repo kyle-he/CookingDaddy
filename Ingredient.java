@@ -4,18 +4,20 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- *  Represents an ingredient.
+ * Represents an ingredient.
  *
- *  @author Kyle He
- *  @author Angela Jiao
- *  @version May 13, 2021
+ * @author Kyle He
+ * @author Angela Jiao
+ * @version May 13, 2021
  */
-public class Ingredient {
+public class Ingredient
+{
     /**
-     *  Represents a type of Ingredient.
+     * Represents a type of Ingredient.
      *
-     *  @author Kyle He, Angela Jiao
-     *  @version May 17, 2021
+     * @author Kyle He
+     * @author Angela Jiao
+     * @version May 17, 2021
      */
     // image stuff
     public enum Type
@@ -34,19 +36,24 @@ public class Ingredient {
         SAUCE
     }
 
-    private Type type;
-    private String name;
-    private int cost;
+    private Type          type;
+    private String        name;
+    private int           cost;
     private BufferedImage image;
     private BufferedImage buttonImage;
 
     /**
-     * Create a new Ingredient object from a given name and type.
-     * @param n name
-     * @param t type
-     * @param c cost
+     * Create a new Ingredient object from a given name, type, and cost.
+     *
+     * @param n
+     *            name
+     * @param t
+     *            type
+     * @param c
+     *            cost
      */
-    public Ingredient(String n, Type t, int c){
+    public Ingredient(String n, Type t, int c)
+    {
         name = n;
         type = t;
         cost = c;
@@ -62,9 +69,12 @@ public class Ingredient {
         }
     }
 
-    private String getImagePath(){
+
+    private String getImagePath()
+    {
         String imagePath = "";
-        switch(type){
+        switch (type)
+        {
             case DRINK:
                 imagePath = "images/drink/drink_";
                 break;
@@ -78,9 +88,12 @@ public class Ingredient {
         return imagePath + name.toLowerCase().replaceAll(" ", "_") + ".png";
     }
 
-    private String getIconImagePath(){
+
+    private String getIconImagePath()
+    {
         String imagePath = "";
-        switch(type){
+        switch (type)
+        {
             case DRINK:
                 imagePath = "images/drink/drink_";
                 break;
@@ -94,32 +107,42 @@ public class Ingredient {
         return imagePath + name.toLowerCase().replaceAll(" ", "_") + ".png";
     }
 
+
     /**
      * Create a new Ingredient object from a given name.
-     * @param n name
+     *
+     * @param n
+     *            name
      */
     public Ingredient(String n)
     {
         name = n;
     }
 
+
     /**
      * Create a new Ingredient object from a given type.
-     * @param t type
+     *
+     * @param t
+     *            type
      */
     public Ingredient(Type t)
     {
         type = t;
     }
 
+
     /**
      * Sets the type to a given value.
-     * @param t type to set to
+     *
+     * @param t
+     *            type to set to
      */
     public void setType(Type t)
     {
         type = t;
     }
+
 
     @Override
     public boolean equals(Object o)
@@ -131,8 +154,10 @@ public class Ingredient {
         return name.equals(((Ingredient)o).getName());
     }
 
+
     /**
      * Gets the type.
+     *
      * @return type
      */
     public Type getType()
@@ -140,35 +165,56 @@ public class Ingredient {
         return type;
     }
 
-    public String getName(){
+
+    /**
+     * Gets the name.
+     *
+     * @return name
+     */
+    public String getName()
+    {
         return name;
     }
 
+
+    /**
+     * Gets the cost.
+     *
+     * @return cost
+     */
     public int getCost()
     {
         return cost;
     }
 
+
     /**
      * Gets the associated image.
+     *
      * @return image
      */
-    public BufferedImage getImage(){
+    public BufferedImage getImage()
+    {
         return image;
     }
 
+
     /**
      * Gets the associated button image.
+     *
      * @return image
      */
-    public BufferedImage getButtonImage(){
+    public BufferedImage getButtonImage()
+    {
         return buttonImage;
     }
+
 
     /**
      * {@inheritDoc}
      */
-    public String toString(){
+    public String toString()
+    {
         return name;
     }
 }

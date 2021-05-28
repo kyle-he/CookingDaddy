@@ -14,45 +14,51 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *  This class handles all the graphics
+ * This class handles all the graphics
  *
- *  @author Kyle He
- *  @version May 13, 2021
+ * @author Kyle He
+ * @author Angela Jiao
+ * @version May 13, 2021
  */
-public class GUIHandler{
+public class GUIHandler
+{
     /**
-     * Scorecard
+     * scorecard
      */
-    public scoreCard scoreCard;
+    public scoreCard       scoreCard;
 
     /**
-     * Building workspace
+     * building workspace
      */
-    public buildingPanel buildingPanel;
+    public buildingPanel   buildingPanel;
 
     /**
-     * Orderpanel
+     * order panel
      */
-    public orderPanel orderPanel;
+    public orderPanel      orderPanel;
 
     /**
-     * Ingredientpanel
+     * ingredient panel
      */
     public ingredientPanel ingredientPanel;
 
     /**
-     * GUI Hanlder
-     * 
-     * @param frame window frame
+     * GUI Handler
+     *
+     * @param frame
+     *            window frame
      */
-    public GUIHandler(JFrame frame) {
+    public GUIHandler(JFrame frame)
+    {
         initUI(frame);
     }
 
-    private void initUI(JFrame frame) {
-        frame.setSize(900,900);
 
-        JPanel contentPane =  new JPanel();
+    private void initUI(JFrame frame)
+    {
+        frame.setSize(900, 900);
+
+        JPanel contentPane = new JPanel();
         contentPane.setLayout(new GridLayout(2, 1, 5, 5));
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.setContentPane(contentPane);
@@ -72,7 +78,8 @@ public class GUIHandler{
 
         frame.setVisible(true);
 
-        // this way, we can run getSize() without after the size has actually been calculated
+        // this way, we can run getSize() without after the size has actually
+        // been calculated
         scoreCard.setVisible();
         buildingPanel.setVisible();
         orderPanel.setVisible();
@@ -82,19 +89,31 @@ public class GUIHandler{
     /**
      * IngredientPanel
      */
-    class ingredientPanel extends PrettyJPanel{
-        public ingredientPanel(){
+    class ingredientPanel
+        extends PrettyJPanel
+    {
+        /**
+         * Create a new ingredientPanel object.
+         */
+        public ingredientPanel()
+        {
             super(PrettyJPanel.Type.OUTLINED);
         }
 
-        public void setVisible(){
+
+        /**
+         * Sets to visible.
+         */
+        public void setVisible()
+        {
             setLayout(new GridLayout(1, 2, 5, 5));
             setBackground(new Color(0xF5CBA7));
 
             JPanel foodGrid = new JPanel();
             foodGrid.setLayout(new GridLayout(4, 4, 5, 5));
             foodGrid.setBackground(new Color(0xF5CBA7));
-            for (Ingredient i: Generator.getAllIngredients()){
+            for (Ingredient i : Generator.getAllIngredients())
+            {
                 IngredientButton button = new IngredientButton(i);
                 foodGrid.add(button);
             }
@@ -106,7 +125,8 @@ public class GUIHandler{
             JPanel sauceGrid = new JPanel();
             sauceGrid.setLayout(new GridLayout(4, 1, 5, 5));
             sauceGrid.setBackground(new Color(0xF5CBA7));
-            for (Ingredient i: Generator.getAllSauces()){
+            for (Ingredient i : Generator.getAllSauces())
+            {
                 IngredientButton button = new IngredientButton(i);
                 sauceGrid.add(button);
             }
@@ -114,7 +134,8 @@ public class GUIHandler{
             JPanel drinkGrid = new JPanel();
             drinkGrid.setLayout(new GridLayout(4, 1, 5, 5));
             drinkGrid.setBackground(new Color(0xF5CBA7));
-            for (Ingredient i: Generator.getAllDrinks()){
+            for (Ingredient i : Generator.getAllDrinks())
+            {
                 IngredientButton button = new IngredientButton(i);
                 drinkGrid.add(button);
             }
@@ -127,20 +148,32 @@ public class GUIHandler{
         }
     }
 
+
     /**
      * OrderPanel class
      */
-    class orderPanel extends PrettyJPanel{
+    class orderPanel
+        extends PrettyJPanel
+    {
         private JLabel title;
-        private JLabel foodImage = new JLabel();
+        private JLabel foodImage  = new JLabel();
         private JLabel sauceImage = new JLabel();
         private JLabel drinkImage = new JLabel();
 
-        public orderPanel(){
+        /**
+         * Create a new orderPanel object.
+         */
+        public orderPanel()
+        {
             super(PrettyJPanel.Type.OUTLINED);
         }
 
-        public void setVisible(){
+
+        /**
+         * Sets to visible.
+         */
+        public void setVisible()
+        {
             setLayout(new BorderLayout());
             setBackground(new Color(0xF7F9F9));
 
@@ -158,7 +191,8 @@ public class GUIHandler{
             foodImage.setVerticalTextPosition(JLabel.BOTTOM);
             foodImage.setFont(new Font("Helvetica", Font.PLAIN, 15));
 
-            PrettyJPanel bottomImage = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
+            PrettyJPanel bottomImage =
+                new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
             bottomImage.add(sauceImage);
             bottomImage.add(drinkImage);
 
@@ -166,52 +200,89 @@ public class GUIHandler{
             add(bottomImage, BorderLayout.SOUTH);
         }
 
-        public void displayCustomer(Customer c){
+
+        /**
+         * Displays a Customer.
+         *
+         * @param c
+         *            Customer to display
+         */
+        public void displayCustomer(Customer c)
+        {
             title.setText(c.getCustomerName() + "'s Order");
             Recipe recipe = c.getOrder().getRecipe();
 
-            foodImage.setIcon(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height*4/7)));
+            foodImage.setIcon(
+                new ImageIcon(
+                    ImageGenerator.generateFoodImage(
+                        recipe,
+                        getSize().width - 100,
+                        getSize().height * 4 / 7)));
             foodImage.setText(c.getOrder().getRecipe().getName());
 
-            sauceImage.setIcon(new ImageIcon(ImageGenerator.generateSauceImage(c.getOrder(), getSize().width/2 - 40, 80)));
-            drinkImage.setIcon(new ImageIcon(ImageGenerator.generateDrinkImage(c.getOrder(), getSize().width/2 - 40, 80)));
+            sauceImage.setIcon(
+                new ImageIcon(
+                    ImageGenerator.generateSauceImage(
+                        c.getOrder(),
+                        getSize().width / 2 - 40,
+                        80)));
+            drinkImage.setIcon(
+                new ImageIcon(
+                    ImageGenerator.generateDrinkImage(
+                        c.getOrder(),
+                        getSize().width / 2 - 40,
+                        80)));
 
             repaint();
         }
     }
 
+
     /**
      * BuildingPanel class
      */
-    class buildingPanel extends PrettyJPanel{
-        private JLabel title;
-        private JLabel foodImage = new JLabel();
-        private JLabel sauceImage = new JLabel();
-        private JLabel drinkImage = new JLabel();
+    class buildingPanel
+        extends PrettyJPanel
+    {
+        private JLabel        title;
+        private JLabel        foodImage  = new JLabel();
+        private JLabel        sauceImage = new JLabel();
+        private JLabel        drinkImage = new JLabel();
 
         private timeCountdown timeCountdown;
 
-        public buildingPanel(){
+        /**
+         * Create a new buildingPanel object.
+         */
+        public buildingPanel()
+        {
             super(PrettyJPanel.Type.OUTLINED);
         }
 
-        public void setVisible(){
+
+        /**
+         * Sets to visible.
+         */
+        public void setVisible()
+        {
             setLayout(new BorderLayout());
             setBackground(new Color(0xFCF3CF));
 
             title = new JLabel("Burger in Progress");
             title.setFont(new Font("Helvetica", Font.BOLD, 20));
 
-            timeCountdown = new timeCountdown((int) getSize().getWidth());
+            timeCountdown = new timeCountdown((int)getSize().getWidth());
             add(title, BorderLayout.NORTH);
 
-            PrettyJPanel burgerProgress = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
+            PrettyJPanel burgerProgress =
+                new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
 
             foodImage.setHorizontalAlignment(JLabel.CENTER);
             sauceImage.setHorizontalAlignment(JLabel.CENTER);
             drinkImage.setHorizontalAlignment(JLabel.CENTER);
 
-            PrettyJPanel bottomImage = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
+            PrettyJPanel bottomImage =
+                new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
             bottomImage.add(sauceImage);
             bottomImage.add(drinkImage);
 
@@ -223,24 +294,60 @@ public class GUIHandler{
             add(timeCountdown, BorderLayout.SOUTH);
         }
 
-        public void incrementTime(int amount){
+
+        /**
+         * Increments the time by a given amount.
+         *
+         * @param amount
+         *            amount to increment the time by
+         */
+        public void incrementTime(int amount)
+        {
             timeCountdown.incrementFill(amount);
 
             repaint();
         }
 
-        public void displayFood(Order order){
+
+        /**
+         * Displays a given Order.
+         *
+         * @param order
+         *            Order to display
+         */
+        public void displayFood(Order order)
+        {
             Recipe recipe = order.getRecipe();
 
-            foodImage.setIcon(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height*4/7)));
+            foodImage.setIcon(
+                new ImageIcon(
+                    ImageGenerator.generateFoodImage(
+                        recipe,
+                        getSize().width - 100,
+                        getSize().height * 4 / 7)));
 
-            sauceImage.setIcon(new ImageIcon(ImageGenerator.generateSauceImage(order, getSize().width/2 - 40, 80)));
-            drinkImage.setIcon(new ImageIcon(ImageGenerator.generateDrinkImage(order, getSize().width/2 - 40, 80)));
+            sauceImage.setIcon(
+                new ImageIcon(
+                    ImageGenerator.generateSauceImage(
+                        order,
+                        getSize().width / 2 - 40,
+                        80)));
+            drinkImage.setIcon(
+                new ImageIcon(
+                    ImageGenerator.generateDrinkImage(
+                        order,
+                        getSize().width / 2 - 40,
+                        80)));
 
             repaint();
         }
 
-        public void clearDisplay(){
+
+        /**
+         * Clears the display.
+         */
+        public void clearDisplay()
+        {
             foodImage.setIcon(null);
             sauceImage.setIcon(null);
             drinkImage.setIcon(null);
@@ -249,30 +356,49 @@ public class GUIHandler{
         }
     }
 
+
     /**
-     * Scorecard class
+     * ScoreCard class
      */
-    class scoreCard extends PrettyJPanel{
+    class scoreCard
+        extends PrettyJPanel
+    {
         private JLabel balance;
         private JLabel level;
         private JLabel location;
         private JLabel message;
         private JLabel currentOrder;
 
-        public scoreCard(){
+        /**
+         * Create a new scoreCard object.
+         */
+        public scoreCard()
+        {
             super(PrettyJPanel.Type.TRANSPARENT);
         }
 
-        public void setVisible(){
-            setLayout(new GridLayout(2,1,0,5));
+
+        /**
+         * Sets to visible.
+         */
+        public void setVisible()
+        {
+            setLayout(new GridLayout(2, 1, 0, 5));
             setBackground(new Color(0xEBF5FB));
 
-            PrettyJPanel upperPanel = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
-            upperPanel.setLayout(new GridLayout(2,1,0,5));
+            PrettyJPanel upperPanel =
+                new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
+            upperPanel.setLayout(new GridLayout(2, 1, 0, 5));
 
-            PrettyJPanel messageCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
-            messageCard.setLayout(new BoxLayout(messageCard, BoxLayout.Y_AXIS));
-            message = new JLabel("<html>Welcome to the Cooking Daddy! <br>You have " + GameHandler.getTime() + " seconds to make as much money as possible.</html>");
+            PrettyJPanel messageCard = new PrettyJPanel(
+                PrettyJPanel.Type.TRANSPARENT,
+                PrettyJPanel.Type.OUTLINED);
+            messageCard
+                .setLayout(new BoxLayout(messageCard, BoxLayout.Y_AXIS));
+            message = new JLabel(
+                "<html>Welcome to the Cooking Daddy! <br>You have "
+                    + GameHandler.getTime()
+                    + " seconds to make as much money as possible.</html>");
             message.setFont(new Font("Helvetica", Font.PLAIN, 15));
 
             JLabel messageTitle = new JLabel("Messages");
@@ -280,7 +406,9 @@ public class GUIHandler{
             messageCard.add(messageTitle);
             messageCard.add(message);
 
-            PrettyJPanel statsCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
+            PrettyJPanel statsCard = new PrettyJPanel(
+                PrettyJPanel.Type.TRANSPARENT,
+                PrettyJPanel.Type.OUTLINED);
             statsCard.setLayout(new BoxLayout(statsCard, BoxLayout.Y_AXIS));
 
             balance = new JLabel("Balance: 0 coins");
@@ -298,7 +426,9 @@ public class GUIHandler{
             statsCard.add(level);
             statsCard.add(location);
 
-            PrettyJPanel orderPanel = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
+            PrettyJPanel orderPanel = new PrettyJPanel(
+                PrettyJPanel.Type.TRANSPARENT,
+                PrettyJPanel.Type.OUTLINED);
             orderPanel.setLayout(new BoxLayout(orderPanel, BoxLayout.Y_AXIS));
 
             JLabel orderTitle = new JLabel("Current Burger Recipe");
@@ -317,24 +447,58 @@ public class GUIHandler{
             add(orderPanel);
         }
 
-        public void displayMessage(String msg){
+
+        /**
+         * Displays a message.
+         *
+         * @param msg
+         *            message to display
+         */
+        public void displayMessage(String msg)
+        {
             message.setText(msg);
 
             repaint();
         }
 
-        public void displayOrder(Order order){
-            currentOrder.setText("<html>" + order.toString().replace("\n", "<br> <br>") + "</html>");
+
+        /**
+         * Displays an Order.
+         *
+         * @param order
+         *            Order to display
+         */
+        public void displayOrder(Order order)
+        {
+            currentOrder.setText(
+                "<html>" + order.toString().replace("\n", "<br> <br>")
+                    + "</html>");
 
             repaint();
         }
 
-        public void displayBalance(int amount){
+
+        /**
+         * Displays the balance.
+         *
+         * @param amount
+         *            amount of coins
+         */
+        public void displayBalance(int amount)
+        {
             balance.setText("Balance: " + amount + " coins");
             repaint();
         }
 
-        public void displayLevel(int l){
+
+        /**
+         * Displays the level.
+         *
+         * @param l
+         *            level to display
+         */
+        public void displayLevel(int l)
+        {
             level.setText("Level: " + l);
             location.setText("Venue: " + Generator.getLocation(l));
 
@@ -342,24 +506,27 @@ public class GUIHandler{
         }
     }
 
-    private class timeCountdown extends JComponent{
-        private int width;
-        private int fill = 1000; //from 1-100
 
-        public timeCountdown(int width){
+    private class timeCountdown
+        extends JComponent
+    {
+        private int width;
+        private int fill = 1000; // from 1-100
+
+        public timeCountdown(int width)
+        {
             super();
 
             this.width = width;
             setSize(width, 30);
         }
 
-        public int getFill(){
-            return fill;
-        }
 
-        public void incrementFill(int amount){
+        public void incrementFill(int amount)
+        {
             fill += amount;
         }
+
 
         @Override
         public void paintComponent(Graphics g)
@@ -369,13 +536,14 @@ public class GUIHandler{
             g.fillRect(0, 0, width, 30);
 
             g.setColor(new Color(0xff8c00));
-            g.fillRect(0, 0, fill*width/1000, 30);
+            g.fillRect(0, 0, fill * width / 1000, 30);
         }
 
+
         @Override
-        public Dimension getPreferredSize(){
+        public Dimension getPreferredSize()
+        {
             return new Dimension(width, 30);
         }
     }
 }
-

@@ -13,26 +13,38 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MenuScreen implements ActionListener {
-    private JFrame frame;
+/**
+ * Represents the main page of the game.
+ *
+ * @author Kyle He
+ * @author Angela Jiao
+ * @version May 26, 2021
+ */
+public class MenuScreen
+    implements ActionListener
+{
+    private JFrame     frame;
     private JTextField textField;
 
     /**
      * Constructor
      */
-    public MenuScreen(){
+    public MenuScreen()
+    {
         displayMenu();
     }
+
 
     /**
      * Display Menu
      */
-    public void displayMenu(){
+    public void displayMenu()
+    {
         frame = new JFrame("Cooking Daddy");
-        frame.setSize(900,900);
+        frame.setSize(900, 900);
         frame.setResizable(false);
 
-        JPanel contentPane =  new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setLayout(new GridBagLayout());
 
         JPanel mainMenu = new JPanel();
@@ -40,9 +52,10 @@ public class MenuScreen implements ActionListener {
 
         try
         {
-            BufferedImage img = ImageIO.read(new File("images/ui/cooking_daddy.png"));
-            ImageIcon icon =new ImageIcon(img);
-            JLabel title=new JLabel();
+            BufferedImage img =
+                ImageIO.read(new File("images/ui/cooking_daddy.png"));
+            ImageIcon icon = new ImageIcon(img);
+            JLabel title = new JLabel();
             title.setIcon(icon);
             title.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
@@ -73,11 +86,16 @@ public class MenuScreen implements ActionListener {
         frame.setVisible(true);
     }
 
+
     @Override
-    public void actionPerformed(ActionEvent e) {
-        try {
+    public void actionPerformed(ActionEvent e)
+    {
+        try
+        {
             GameHandler.runGame(frame, Integer.parseInt(textField.getText()));
-        } catch(NumberFormatException ex){
+        }
+        catch (NumberFormatException ex)
+        {
             GameHandler.runGame(frame, 120);
         }
     }

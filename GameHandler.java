@@ -3,6 +3,13 @@ import java.util.concurrent.Executors;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ *  Handles the game mechanics.
+ *
+ *  @author Angela Jiao
+ *  @author Kyle He
+ *  @version May 26, 2021
+ */
 public class GameHandler
 {
     private static int             coins = 10;
@@ -13,6 +20,11 @@ public class GameHandler
     private static GUIHandler      ex;
     private static int time = 120;
 
+    /**
+     * Runs the game.
+     * @param frame JFrame
+     * @param inputTime input time
+     */
     public static void runGame(JFrame frame, int inputTime)
     {
         time = inputTime;
@@ -36,6 +48,9 @@ public class GameHandler
         executorService.shutdown();
     }
 
+    /**
+     * Starts the game.
+     */
     public static void startGame()
     {
         ch.addCustomer(level);
@@ -68,9 +83,12 @@ public class GameHandler
         System.exit(0);
     }
 
+    /**
+     * Checks if the level should be incremented. Starts the game again.
+     */
     public static void checkLevelUp()
     {
-        if (coins > level * 20)
+        if (coins > level * 50)
         {
             level++;
             ex.scoreCard.displayMessage("Level up! You are now at level " + level + "!");
@@ -80,6 +98,10 @@ public class GameHandler
     }
 
 
+    /**
+     * Adds an Ingredient using OrderBuilder.
+     * @param i Ingredient to add
+     */
     public static void addIngredient(Ingredient i)
     {
         Order curr = ob.getCurrent();
@@ -106,6 +128,10 @@ public class GameHandler
         }
     }
 
+    /**
+     * Gets the time.
+     * @return time
+     */
     public static int getTime(){
         return time;
     }

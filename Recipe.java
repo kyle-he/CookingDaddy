@@ -1,32 +1,40 @@
 import java.util.ArrayList;
 
 /**
- *  Represents a burger to which ingredients can be added.
+ * Represents a burger to which ingredients can be added.
  *
- *  @author Angela Jiao
- *  @author Kyle He
- *  @version April 29, 2021
+ * @author Angela Jiao
+ * @author Kyle He
+ * @version April 29, 2021
  */
-public class Recipe {
+public class Recipe
+{
 
-    private String name;
+    private String                name;
     private ArrayList<Ingredient> ingredients;
-    private int cost;
+    private int                   cost;
 
     /**
      * Create a new Recipe object with one parameter.
-     * @param name name of the recipe
+     *
+     * @param name
+     *            name of the recipe
      */
-    public Recipe(String name){
+    public Recipe(String name)
+    {
         this.name = name;
         ingredients = new ArrayList<Ingredient>();
     }
+
+
     /**
      * Create a new Recipe object with no parameters.
      */
-    public Recipe() {
+    public Recipe()
+    {
         ingredients = new ArrayList<Ingredient>();
     }
+
 
     @Override
     public boolean equals(Object o)
@@ -34,15 +42,18 @@ public class Recipe {
         return ingredients.equals(((Recipe)o).getIngredients());
     }
 
+
     /**
      * {@inheritDoc}
      */
-    public String toString(){
+    public String toString()
+    {
         String recipe = "Name: " + name;
         recipe += "\nIngredients: ";
 
         String delim = "";
-        for (Ingredient i : ingredients) {
+        for (Ingredient i : ingredients)
+        {
             recipe += delim + i;
             delim = ", ";
         }
@@ -50,25 +61,20 @@ public class Recipe {
     }
 
     /**
-     * Adds a given Ingredient at a given index.
-     * @param i index
-     * @param s Ingredient to add
-     */
-    public void addIngredient(int i, Ingredient s){
-        ingredients.add(i, s);
-    }
-
-    /**
      * Adds a given Ingredient to the end of the list.
-     * @param s Ingredient to add
+     *
+     * @param s
+     *            Ingredient to add
      */
     public void addIngredient(Ingredient s)
     {
         ingredients.add(s);
     }
 
+
     /**
      * Gets the ArrayList of ingredients.
+     *
      * @return ingredients
      */
     public ArrayList<Ingredient> getIngredients()
@@ -76,8 +82,10 @@ public class Recipe {
         return ingredients;
     }
 
+
     /**
      * Gets the name of the burger.
+     *
      * @return ingredients
      */
     public String getName()
@@ -85,14 +93,15 @@ public class Recipe {
         return name;
     }
 
+
     /**
-     * Get cost
-     * 
+     * Gets the cost.
+     *
      * @return cost
      */
     public int getCost()
     {
-        for (Ingredient i: ingredients)
+        for (Ingredient i : ingredients)
         {
             cost += i.getCost();
         }
