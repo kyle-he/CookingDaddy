@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MenuScreen implements ActionListener {    
-    private JFrame frame; 
+public class MenuScreen implements ActionListener {
+    private JFrame frame;
     private JTextField textField;
 
     /**
@@ -29,9 +29,9 @@ public class MenuScreen implements ActionListener {
      */
     public void displayMenu(){
         frame = new JFrame("Cooking Daddy");
-        frame.setSize(1000,1000);
+        frame.setSize(900,900);
         frame.setResizable(false);
-        
+
         JPanel contentPane =  new JPanel();
         contentPane.setLayout(new GridBagLayout());
 
@@ -53,7 +53,7 @@ public class MenuScreen implements ActionListener {
             e.printStackTrace();
         }
 
-        JLabel textLabel = new JLabel("Time of Run: ");
+        JLabel textLabel = new JLabel("Time of Run (seconds): ");
         textLabel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
         mainMenu.add(textLabel);
 
@@ -68,7 +68,7 @@ public class MenuScreen implements ActionListener {
         mainMenu.add(startButton);
 
         contentPane.add(mainMenu);
-        
+
         frame.setContentPane(contentPane);
         frame.setVisible(true);
     }
