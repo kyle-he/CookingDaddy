@@ -1,22 +1,20 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import java.awt.Dimension;
 
 public class GUIHandler{
     public scoreCard scoreCard;
@@ -57,6 +55,13 @@ public class GUIHandler{
 
         frame.setVisible(true);
 
+
+        // this way, we can run getSize() without after the size has actually been calculated
+        scoreCard.setVisible();
+        buildingPanel.setVisible();
+        orderPanel.setVisible();
+        ingredientPanel.setVisible();
+
         ch.addCustomer(level);
         currCustomer = ch.getCustomer();
         ob = new OrderBuilder(currCustomer.getOrder());
@@ -65,6 +70,10 @@ public class GUIHandler{
 
     private class ingredientPanel extends JPanel{
         public ingredientPanel(){
+
+        }
+
+        public void setVisible(){
             setLayout(new GridLayout(1, 2, 5, 5));
             setBackground(new Color(0xF5CBA7));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
@@ -110,7 +119,9 @@ public class GUIHandler{
         private JLabel description;
 
         public orderPanel(){
-            // setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        }
+
+        public void setVisible(){
             setBackground(new Color(0xF7F9F9));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(Color.black, 3), new EmptyBorder(10, 10, 10, 10)));
 
@@ -128,6 +139,7 @@ public class GUIHandler{
             picLabel.setHorizontalTextPosition(JLabel.CENTER);
             picLabel.setVerticalTextPosition(JLabel.BOTTOM);
             picLabel.setText(c.getOrder().getRecipe().getName());
+            picLabel.setFont(new Font("Helvetica", Font.PLAIN, 15));
 
             add(picLabel);
         }
@@ -135,28 +147,34 @@ public class GUIHandler{
 
     private class buildingPanel extends JPanel{
         private JLabel title;
-        private JLabel description;
+        private JComponent timeCountdown;
 
         public buildingPanel(){
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        }
+
+        public void setVisible(){
+            setLayout(new BorderLayout());
             setBackground(new Color(0xFCF3CF));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(0x301800), 3), new EmptyBorder(10, 10, 10, 10)));
 
             title = new JLabel("Burger in Progress");
             title.setFont(new Font("Helvetica", Font.BOLD, 15));
-            // title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            description = new JLabel("food");
+            timeCountdown = new timeCountdown((int) getSize().getWidth());
+            add(title, BorderLayout.NORTH);
+            add(timeCountdown, BorderLayout.SOUTH);
+        }
 
-            add(new timeCountdown());
-            add(title);
+        public void getCountdown(){
+
         }
 
         public void displayFood(Recipe recipe){
-            BufferedImage image = ImageGenerator.generateFoodImage(recipe, 200);
-            Image img = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-            JLabel picLabel = new JLabel(new ImageIcon(img));
-            add(picLabel);
+            JLabel picLabel = new JLabel(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height - 200)), JLabel.CENTER);
+            picLabel.setHorizontalTextPosition(JLabel.CENTER);
+            picLabel.setVerticalTextPosition(JLabel.BOTTOM);
+
+            add(picLabel, BorderLayout.CENTER);
         }
     }
 
@@ -164,6 +182,9 @@ public class GUIHandler{
         private JLabel title;
 
         public scoreCard(){
+        }
+
+        public void setVisible(){
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBackground(new Color(0xEBF5FB));
             setBorder(BorderFactory.createCompoundBorder(new LineBorder(new Color(0x1B4F72), 3), new EmptyBorder(10, 10, 10, 10)));
@@ -172,19 +193,47 @@ public class GUIHandler{
             title.setFont(new Font("Helvetica", Font.BOLD, 15));
             title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
             add(title);
         }
     }
 
-    private class timeCountdown extends JProgressBar{
-        public timeCountdown(){
-            setValue(40);
-            setBounds(0,0,520,50);
-            setStringPainted(true);
-            setFont(new Font("Helvetica",Font.PLAIN, 25));
-            setForeground(Color.red);
-            setBackground(Color.black);
+    private class timeCountdown extends JComponent{
+        private int width;
+        private int fill = 10; //from 1-100
+
+        public timeCountdown(int width){
+            super();
+
+            this.width = width;
+            setSize(width, 30);
+        }
+        
+        public void updateFill(int newFill){
+            fill = newFill;
+        }
+
+        public void incrementFill(int amount){
+            fill += amount;
+        }
+
+        public int getFill(){
+            return fill;
+        }
+
+        @Override
+        public void paintComponent(Graphics g) 
+        {
+            super.paintComponent(g);
+            g.setColor(new Color(0x181818));
+            g.fillRect(0, 0, width, 30);
+
+            g.setColor(new Color(0xFF0000));
+            g.fillRect(0, 0, fill, 30);
+        }
+
+        @Override
+        public Dimension getPreferredSize(){
+            return new Dimension(width, 30);
         }
     }
 }
