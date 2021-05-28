@@ -125,7 +125,7 @@ public class Ingredient {
     @Override
     public boolean equals(Object o)
     {
-        if (name == null)
+        if (name == null || o == null)
         {
             return false;
         }
