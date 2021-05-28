@@ -11,8 +11,8 @@ public class GameHandler {
 
     public static void runGame(JFrame frame){
         ex = new GUIHandler(frame);
+        ex.scoreCard.displayBalance(coins);
         startGame();
-        //e
     }
 
     public static void startGame()
@@ -22,12 +22,12 @@ public class GameHandler {
         System.out.println(currCustomer.getOrder());
         ob = new OrderBuilder(currCustomer.getOrder());
         ex.orderPanel.displayCustomer(currCustomer);
-        JOptionPane.showMessageDialog(null, currCustomer.getOrder().getCost());
+        JOptionPane.showMessageDialog(null, "Price of order: " + currCustomer.getOrder().getCost() + " coins");
     }
 
     public static void checkLevelUp()
     {
-        if (coins > level * 20)
+        if (coins > level * 60)
         {
             level++;
             JOptionPane.showMessageDialog(null, "Level up! You are now at level " + level + "!");
@@ -48,15 +48,18 @@ public class GameHandler {
             {
                 coins += goal.getCost();
                 JOptionPane.showMessageDialog(null, "You received " + goal.getCost() + " coins!");
+                ex.scoreCard.displayBalance(coins);
                 checkLevelUp();
                 return;
             }
         }
         else
         {
-            System.out.println(i);
-            coins -= i.getCost();
-            JOptionPane.showMessageDialog(null, "Incorrect ingredient. You lost " + i.getCost() + " coins.");
+            int coinsLost = 0;
+            coinsLost = i.getCost() + curr.calculateCost();
+            coins -= coinsLost;
+            JOptionPane.showMessageDialog(null, "Incorrect ingredient. You lost " + coinsLost + " coins.");
+            ex.scoreCard.displayBalance(coins);
         }
     }
 }
