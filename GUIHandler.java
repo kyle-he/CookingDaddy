@@ -203,7 +203,7 @@ public class GUIHandler{
 
             PrettyJPanel levelCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
             balance = new JLabel("Level: 1, Big House");
-            balanceCard.add(balance);
+            levelCard.add(balance);
 
             pastOrders = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
             pastOrders.add(new JLabel("pastorders"));
