@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Represents an order consisting of a burger, a drink, and sauces.
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Order
 {
     private Ingredient drink;
-    private ArrayList<Ingredient> sauces;
+    private HashSet<Ingredient> sauces;
     private Recipe recipe;
     private int cost;
 
@@ -19,7 +19,7 @@ public class Order
      * @param s sauces
      * @param r recipe
      */
-    public Order(Ingredient d, ArrayList<Ingredient> s, Recipe r)
+    public Order(Ingredient d, HashSet<Ingredient> s, Recipe r)
     {
         drink = d;
         drink.setType(Ingredient.Type.DRINK);
@@ -35,13 +35,21 @@ public class Order
         cost = (int)(cost * 1.5);
     }
 
+//    public Order(Order o)
+//    {
+//        drink = o.getDrink();
+//        sauces = new HashSet<Ingredient>(o.getSauces());
+//        recipe = o.getRecipe();
+//        cost = o.getCost();
+//    }
+
     /**
      * Create a new Order object with no parameters.
      */
     public Order()
     {
         drink = new Ingredient(Ingredient.Type.DRINK);
-        sauces = new ArrayList<Ingredient>();
+        sauces = new HashSet<Ingredient>();
         recipe = new Recipe();
     }
 
@@ -82,7 +90,7 @@ public class Order
      * Gets the set of sauces.
      * @return sauces
      */
-    public ArrayList<Ingredient> getSauces()
+    public HashSet<Ingredient> getSauces()
     {
         return sauces;
     }
@@ -106,10 +114,10 @@ public class Order
         drink.setType(Ingredient.Type.DRINK);
     }
 
-    public void removeDrink()
-    {
-        drink = null;
-    }
+//    public void removeDrink()
+//    {
+//        drink = null;
+//    }
 
     /**
      * Adds a sauce.
@@ -121,10 +129,10 @@ public class Order
         sauces.add(s);
     }
 
-    public void removeSauce(Ingredient s)
-    {
-        sauces.remove(s);
-    }
+//    public void removeSauce(Ingredient s)
+//    {
+//        sauces.remove(s);
+//    }
 
     public int getCost()
     {

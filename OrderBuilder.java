@@ -10,6 +10,7 @@ public class OrderBuilder
     private Order current;
     private Order goal;
     private int index;
+    private boolean drinkDone;
 
     /**
      * Create a new OrderBuilder object.
@@ -32,20 +33,19 @@ public class OrderBuilder
     {
         if (i.getType() == Ingredient.Type.DRINK)
         {
-            if (i.equals(goal.getDrink()))
+            if (!drinkDone && i.equals(goal.getDrink()))
             {
                 current.addDrink(i);
-                goal.removeDrink();
+                drinkDone = true;
                 return true;
             }
             return false;
         }
         if (i.getType() == Ingredient.Type.SAUCE)
         {
-            if (goal.getSauces().contains(i))
+            if (goal.getSauces().contains(i) && !current.getSauces().contains(i))
             {
                 current.addSauce(i);
-                goal.removeSauce(i);
                 return true;
             }
             return false;
