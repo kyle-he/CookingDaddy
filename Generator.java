@@ -27,7 +27,7 @@ public final class Generator {
      */
     public static Recipe generateRecipe(int level){
         Recipe recipe = new Recipe(generateRecipeName());
-        recipe.addIngredient(new Ingredient("bun bottom", Ingredient.Type.FOOD));
+        recipe.addIngredient(new Ingredient("bun bottom", Ingredient.Type.FOOD, 1));
         for (int i = 0; i < Math.min(level * 3, 8); i++)
         {
             Ingredient ingredient;
@@ -38,7 +38,7 @@ public final class Generator {
             recipe.addIngredient(ingredient);
         }
 
-        recipe.addIngredient(new Ingredient("bun top", Ingredient.Type.FOOD));
+        recipe.addIngredient(new Ingredient("bun top", Ingredient.Type.FOOD, 1));
 
         return recipe;
     }
@@ -89,7 +89,37 @@ public final class Generator {
         ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 
         for (String s: list){
-            ingredientList.add(new Ingredient(s, type));
+            int c = 0;
+            switch (s)
+            {
+                case "bun bottom":
+                    c = 1;
+                    break;
+                case "bun top":
+                    c = 1;
+                    break;
+                case "beef patty":
+                    c = 3;
+                    break;
+                case "chicken patty":
+                    c = 3;
+                    break;
+                case "veggie patty":
+                    c = 3;
+                    break;
+                case "everest dew":
+                    c = 4;
+                    break;
+                case "sunflower nectar":
+                    c = 4;
+                    break;
+                case "water":
+                    c = 0;
+                    break;
+                default:
+                    c = 2;
+            }
+            ingredientList.add(new Ingredient(s, type, c));
         }
 
         return ingredientList;

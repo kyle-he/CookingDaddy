@@ -36,6 +36,7 @@ public class Ingredient {
 
     private Type type;
     private String name;
+    private int cost;
     private BufferedImage image;
     private BufferedImage buttonImage;
 
@@ -43,10 +44,12 @@ public class Ingredient {
      * Create a new Ingredient object from a given name and type.
      * @param n name
      * @param t type
+     * @param c cost
      */
-    public Ingredient(String n, Type t){
+    public Ingredient(String n, Type t, int c){
         name = n;
         type = t;
+        cost = c;
 
         try
         {
@@ -119,6 +122,12 @@ public class Ingredient {
         type = t;
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        return name.equals(((Ingredient)o).getName());
+    }
+
     /**
      * Gets the type.
      * @return type
@@ -130,6 +139,11 @@ public class Ingredient {
 
     public String getName(){
         return name;
+    }
+
+    public int getCost()
+    {
+        return cost;
     }
 
     /**

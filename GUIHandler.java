@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -14,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import java.awt.Dimension;
 
 public class GUIHandler{
     public scoreCard scoreCard;
@@ -22,6 +22,7 @@ public class GUIHandler{
     public orderPanel orderPanel;
     public ingredientPanel ingredientPanel;
 
+    private int score = 0;
     private CustomerHandler ch;
     private int level = 1;
     private Customer currCustomer;
@@ -55,7 +56,6 @@ public class GUIHandler{
 
         frame.setVisible(true);
 
-
         // this way, we can run getSize() without after the size has actually been calculated
         scoreCard.setVisible();
         buildingPanel.setVisible();
@@ -68,7 +68,7 @@ public class GUIHandler{
         orderPanel.displayCustomer(currCustomer);
     }
 
-    private class ingredientPanel extends JPanel{
+    class ingredientPanel extends JPanel{
         public ingredientPanel(){
 
         }
@@ -114,7 +114,7 @@ public class GUIHandler{
         }
     }
 
-    private class orderPanel extends JPanel{
+    class orderPanel extends JPanel{
         private JLabel title;
         private JLabel description;
 
@@ -145,7 +145,7 @@ public class GUIHandler{
         }
     }
 
-    private class buildingPanel extends JPanel{
+    class buildingPanel extends JPanel{
         private JLabel title;
         private JComponent timeCountdown;
 
@@ -178,7 +178,7 @@ public class GUIHandler{
         }
     }
 
-    private class scoreCard extends JPanel{
+    class scoreCard extends JPanel{
         private JLabel title;
 
         public scoreCard(){
