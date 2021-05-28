@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class MenuScreen {
     public MenuScreen(){
@@ -20,7 +21,8 @@ public class MenuScreen {
     public void displayMenu(){
         final JFrame frame = new JFrame("Cooking Daddy");
         frame.setSize(1000,1000);
-
+        frame.setResizable(false);
+        
         JPanel contentPane =  new JPanel();
         contentPane.setLayout(new GridBagLayout());
 

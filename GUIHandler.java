@@ -148,7 +148,7 @@ public class GUIHandler{
             title.setText(c.getCustomerName() + "'s Order");
             Recipe recipe = c.getOrder().getRecipe();
 
-            foodImage.setIcon(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height - 200)));
+            foodImage.setIcon(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height*4/7)));
             foodImage.setText(c.getOrder().getRecipe().getName());
 
             sauceImage.setIcon(new ImageIcon(ImageGenerator.generateSauceImage(c.getOrder(), getSize().width/2 - 40, 80)));
@@ -205,10 +205,18 @@ public class GUIHandler{
         public void displayFood(Order order){
             Recipe recipe = order.getRecipe();
 
-            foodImage.setIcon(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height - 200)));
+            foodImage.setIcon(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height*4/7)));
 
             sauceImage.setIcon(new ImageIcon(ImageGenerator.generateSauceImage(order, getSize().width/2 - 40, 80)));
             drinkImage.setIcon(new ImageIcon(ImageGenerator.generateDrinkImage(order, getSize().width/2 - 40, 80)));
+
+            repaint();
+        }
+
+        public void clearDisplay(){
+            foodImage.setIcon(null);
+            sauceImage.setIcon(null);
+            drinkImage.setIcon(null);
 
             repaint();
         }
@@ -217,6 +225,7 @@ public class GUIHandler{
     class scoreCard extends PrettyJPanel{
         private JLabel balance;
         private JLabel level;
+        private JLabel location;
         private PrettyJPanel pastOrders;
         private JLabel[] pastBurgers = new JLabel[10];
 
@@ -231,15 +240,23 @@ public class GUIHandler{
             PrettyJPanel upperPanel = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
             upperPanel.setLayout(new GridLayout(2,1,0,5));
             
-            PrettyJPanel balanceCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
-            balance = new JLabel("Balance: 0 coins");
-            balance.setFont(new Font("Helvetica", Font.BOLD, 15));
-            balanceCard.add(balance);
+            PrettyJPanel messageCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
+            
 
-            PrettyJPanel levelCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
-            level = new JLabel("Level: 1, Big House");
+            PrettyJPanel statsCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
+            statsCard.setLayout(new BoxLayout(statsCard, BoxLayout.Y_AXIS));
+            
+            balance = new JLabel("Balance: 0 coins");
+            level = new JLabel("Level: 1");
+            location = new JLabel("Venue: Daddy's Garage");
+            
+            balance.setFont(new Font("Helvetica", Font.BOLD, 15));
             level.setFont(new Font("Helvetica", Font.BOLD, 15));
-            levelCard.add(level);
+            location.setFont(new Font("Helvetica", Font.BOLD, 15));
+
+            statsCard.add(balance);
+            statsCard.add(level);
+            statsCard.add(location);
 
             pastOrders = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
             pastOrders.setLayout(new BoxLayout(pastOrders, BoxLayout.Y_AXIS));
@@ -253,11 +270,15 @@ public class GUIHandler{
                 pastOrders.add(pastBurgers[i]);
             }
 
-            upperPanel.add(balanceCard);
-            upperPanel.add(levelCard);
+            upperPanel.add(messageCard);
+            upperPanel.add(statsCard);
 
             add(upperPanel);
             add(pastOrders);
+        }
+
+        public void displayMessage(String message){
+
         }
 
         public void displayBalance(int amount){
@@ -265,7 +286,8 @@ public class GUIHandler{
         }
 
         public void displayLevel(int level){
-            balance.setText("Level: " + level + " " + Generator.getLocation(level));
+            balance.setText("Level: " + level);
+            location.setText("Venue: " + Generator.getLocation(level));
         }
     }
 

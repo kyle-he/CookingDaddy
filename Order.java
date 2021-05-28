@@ -61,6 +61,15 @@ public class Order
         {
             return false;
         }
+        // if (recipe.equals(o.getRecipe())){
+        //     System.out.println("Burger is done!");
+        // }
+        // if (drink.equals(o.getDrink())){
+        //     System.out.println("Drink is done!");
+        // }
+        // if (sauces.equals(o.getSauces())){
+        //     System.out.println("Sauce is done!");
+        // }
         return recipe.equals(o.getRecipe()) && drink.equals(o.getDrink()) && sauces.equals(o.getSauces());
     }
 

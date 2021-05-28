@@ -22,6 +22,8 @@ public class GameHandler {
         System.out.println(currCustomer.getOrder());
         ob = new OrderBuilder(currCustomer.getOrder());
         ex.orderPanel.displayCustomer(currCustomer);
+        ex.buildingPanel.clearDisplay();
+
         JOptionPane.showMessageDialog(null, currCustomer.getOrder().getCost());
     }
 
