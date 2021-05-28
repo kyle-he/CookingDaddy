@@ -160,6 +160,10 @@ public class GUIHandler{
 
     class buildingPanel extends PrettyJPanel{
         private JLabel title;
+        private JLabel foodImage = new JLabel();
+        private JLabel sauceImage = new JLabel();
+        private JLabel drinkImage = new JLabel();
+
         private JComponent timeCountdown;
 
         public buildingPanel(){
@@ -175,6 +179,22 @@ public class GUIHandler{
 
             timeCountdown = new timeCountdown((int) getSize().getWidth());
             add(title, BorderLayout.NORTH);
+
+            PrettyJPanel burgerProgress = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
+
+            foodImage.setHorizontalAlignment(JLabel.CENTER);
+            sauceImage.setHorizontalAlignment(JLabel.CENTER);
+            drinkImage.setHorizontalAlignment(JLabel.CENTER);
+
+            PrettyJPanel bottomImage = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
+            bottomImage.add(sauceImage);
+            bottomImage.add(drinkImage);
+
+            burgerProgress.add(foodImage, BorderLayout.CENTER);
+            burgerProgress.add(bottomImage, BorderLayout.SOUTH);
+
+            add(burgerProgress);
+
             add(timeCountdown, BorderLayout.SOUTH);
         }
 
@@ -182,12 +202,15 @@ public class GUIHandler{
 
         }
 
-        public void displayFood(Recipe recipe){
-            JLabel picLabel = new JLabel(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height - 200)), JLabel.CENTER);
-            picLabel.setHorizontalTextPosition(JLabel.CENTER);
-            picLabel.setVerticalTextPosition(JLabel.BOTTOM);
+        public void displayFood(Order order){
+            Recipe recipe = order.getRecipe();
 
-            add(picLabel, BorderLayout.CENTER);
+            foodImage.setIcon(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height - 200)));
+
+            sauceImage.setIcon(new ImageIcon(ImageGenerator.generateSauceImage(order, getSize().width/2 - 40, 80)));
+            drinkImage.setIcon(new ImageIcon(ImageGenerator.generateDrinkImage(order, getSize().width/2 - 40, 80)));
+
+            repaint();
         }
     }
 

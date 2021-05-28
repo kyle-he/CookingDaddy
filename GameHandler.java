@@ -41,6 +41,8 @@ public class GameHandler {
         Order goal = ob.getGoal();
         if (ob.build(i))
         {
+            ex.buildingPanel.displayFood(curr);
+
             System.out.println(i);
             if (curr.equals(goal))
             {
