@@ -28,10 +28,9 @@ public class Order
         for (Ingredient i: sauces)
         {
             i.setType(Ingredient.Type.SAUCE);
-            sauceCost += i.getCost();
         }
         recipe = r;
-        cost = recipe.getCost() + drink.getCost() + sauceCost;
+        cost = calculateCost();
         cost = (int)(cost * 1.5);
     }
 
@@ -142,6 +141,16 @@ public class Order
 //    {
 //        sauces.remove(s);
 //    }
+
+    public int calculateCost()
+    {
+        int sauceCost = 0;
+        for (Ingredient i: sauces)
+        {
+            sauceCost += i.getCost();
+        }
+        return recipe.getCost() + drink.getCost() + sauceCost;
+    }
 
     public int getCost()
     {
