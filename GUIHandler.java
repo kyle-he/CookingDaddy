@@ -110,6 +110,9 @@ public class GUIHandler{
 
     class orderPanel extends PrettyJPanel{
         private JLabel title;
+        private JLabel foodImage = new JLabel();
+        private JLabel sauceImage = new JLabel();
+        private JLabel drinkImage = new JLabel();
 
         public orderPanel(){
             super(PrettyJPanel.Type.OUTLINED);
@@ -120,31 +123,38 @@ public class GUIHandler{
             setBackground(new Color(0xF7F9F9));
 
             title = new JLabel("Some Guy's Order");
-            title.setFont(new Font("Helvetica", Font.BOLD, 15));
+            title.setFont(new Font("Helvetica", Font.BOLD, 20));
 
             add(title, BorderLayout.NORTH);
             add(Box.createVerticalStrut(20));
+            
+            foodImage.setHorizontalAlignment(JLabel.CENTER);
+            sauceImage.setHorizontalAlignment(JLabel.CENTER);
+            drinkImage.setHorizontalAlignment(JLabel.CENTER);
+
+            foodImage.setHorizontalTextPosition(JLabel.CENTER);
+            foodImage.setVerticalTextPosition(JLabel.BOTTOM);
+            foodImage.setFont(new Font("Helvetica", Font.PLAIN, 15));
+
+            PrettyJPanel bottomImage = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
+            bottomImage.add(sauceImage);
+            bottomImage.add(drinkImage);
+
+            add(foodImage, BorderLayout.CENTER);
+            add(bottomImage, BorderLayout.SOUTH);
         }
 
         public void displayCustomer(Customer c){
             title.setText(c.getCustomerName() + "'s Order");
             Recipe recipe = c.getOrder().getRecipe();
 
-            JLabel foodImage = new JLabel(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height - 200)), JLabel.CENTER);
-    
-            foodImage.setHorizontalTextPosition(JLabel.CENTER);
-            foodImage.setVerticalTextPosition(JLabel.BOTTOM);
+            foodImage.setIcon(new ImageIcon(ImageGenerator.generateFoodImage(recipe, getSize().width - 100, getSize().height - 200)));
             foodImage.setText(c.getOrder().getRecipe().getName());
-            foodImage.setFont(new Font("Helvetica", Font.PLAIN, 15));
 
-            PrettyJPanel bottomImage = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
-            JLabel sauceImage = new JLabel(new ImageIcon(ImageGenerator.generateSauceImage(c.getOrder(), getSize().width/2 - 40, 80)), JLabel.CENTER);
-            JLabel drinkImage = new JLabel(new ImageIcon(ImageGenerator.generateDrinkImage(c.getOrder(), getSize().width/2 - 40, 80)), JLabel.CENTER);
-            bottomImage.add(sauceImage);
-            bottomImage.add(drinkImage);
+            sauceImage.setIcon(new ImageIcon(ImageGenerator.generateSauceImage(c.getOrder(), getSize().width/2 - 40, 80)));
+            drinkImage.setIcon(new ImageIcon(ImageGenerator.generateDrinkImage(c.getOrder(), getSize().width/2 - 40, 80)));
 
-            add(foodImage, BorderLayout.CENTER);
-            add(bottomImage, BorderLayout.SOUTH);
+            repaint();
         }
     }
 
@@ -161,7 +171,7 @@ public class GUIHandler{
             setBackground(new Color(0xFCF3CF));
 
             title = new JLabel("Burger in Progress");
-            title.setFont(new Font("Helvetica", Font.BOLD, 15));
+            title.setFont(new Font("Helvetica", Font.BOLD, 20));
 
             timeCountdown = new timeCountdown((int) getSize().getWidth());
             add(title, BorderLayout.NORTH);
@@ -182,31 +192,43 @@ public class GUIHandler{
     }
 
     class scoreCard extends PrettyJPanel{
-        JLabel balance;
-        JLabel levelCard;
-        PrettyJPanel pastOrders;
+        private JLabel balance;
+        private JLabel level;
+        private PrettyJPanel pastOrders;
+        private JLabel[] pastBurgers = new JLabel[10];
 
         public scoreCard(){
             super(PrettyJPanel.Type.TRANSPARENT);
         }
 
         public void setVisible(){
-            setLayout(new GridLayout(2,0,0,5));
+            setLayout(new GridLayout(2,1,0,5));
             setBackground(new Color(0xEBF5FB));
 
             PrettyJPanel upperPanel = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT);
-            upperPanel.setLayout(new GridLayout(2,0,0,5));
+            upperPanel.setLayout(new GridLayout(2,1,0,5));
             
             PrettyJPanel balanceCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
             balance = new JLabel("Balance: 0 coins");
+            balance.setFont(new Font("Helvetica", Font.BOLD, 15));
             balanceCard.add(balance);
 
             PrettyJPanel levelCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
-            balance = new JLabel("Level: 1, Big House");
-            levelCard.add(balance);
+            level = new JLabel("Level: 1, Big House");
+            level.setFont(new Font("Helvetica", Font.BOLD, 15));
+            levelCard.add(level);
 
             pastOrders = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
-            pastOrders.add(new JLabel("pastorders"));
+            pastOrders.setLayout(new BoxLayout(pastOrders, BoxLayout.Y_AXIS));
+
+            JLabel orderTitle = new JLabel("Past Builds");
+            orderTitle.setFont(new Font("Helvetica", Font.BOLD, 20));
+            pastOrders.add(orderTitle);
+            for (int i = 0; i < 10; i++){
+                pastBurgers[i] = new JLabel("e" + i);
+                pastBurgers[i].setFont(new Font("Helvetica", Font.PLAIN, 15));
+                pastOrders.add(pastBurgers[i]);
+            }
 
             upperPanel.add(balanceCard);
             upperPanel.add(levelCard);
