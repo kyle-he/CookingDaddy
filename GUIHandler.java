@@ -164,7 +164,7 @@ public class GUIHandler{
         private JLabel sauceImage = new JLabel();
         private JLabel drinkImage = new JLabel();
 
-        private JComponent timeCountdown;
+        private timeCountdown timeCountdown;
 
         public buildingPanel(){
             super(PrettyJPanel.Type.OUTLINED);
@@ -198,8 +198,10 @@ public class GUIHandler{
             add(timeCountdown, BorderLayout.SOUTH);
         }
 
-        public void getCountdown(){
+        public void incrementTime(int amount){
+            timeCountdown.incrementFill(amount);
 
+            repaint();
         }
 
         public void displayFood(Order order){
@@ -226,8 +228,8 @@ public class GUIHandler{
         private JLabel balance;
         private JLabel level;
         private JLabel location;
-        private PrettyJPanel pastOrders;
-        private JLabel[] pastBurgers = new JLabel[10];
+        private JLabel message;
+        private JLabel currentOrder;
 
         public scoreCard(){
             super(PrettyJPanel.Type.TRANSPARENT);
@@ -241,7 +243,14 @@ public class GUIHandler{
             upperPanel.setLayout(new GridLayout(2,1,0,5));
             
             PrettyJPanel messageCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
-            
+            messageCard.setLayout(new BoxLayout(messageCard, BoxLayout.Y_AXIS));
+            message = new JLabel("<html>Welcome to the Cooking Daddy! <br>You have " + GameHandler.getTime() + " seconds to make as much money as possible.</html>");
+            message.setFont(new Font("Helvetica", Font.PLAIN, 15));
+
+            JLabel messageTitle = new JLabel("Messages");
+            messageTitle.setFont(new Font("Helvetica", Font.BOLD, 20));
+            messageCard.add(messageTitle);
+            messageCard.add(message);
 
             PrettyJPanel statsCard = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
             statsCard.setLayout(new BoxLayout(statsCard, BoxLayout.Y_AXIS));
@@ -254,46 +263,61 @@ public class GUIHandler{
             level.setFont(new Font("Helvetica", Font.BOLD, 15));
             location.setFont(new Font("Helvetica", Font.BOLD, 15));
 
+            JLabel statsTitle = new JLabel("Statistics");
+            statsTitle.setFont(new Font("Helvetica", Font.BOLD, 20));
+            statsCard.add(statsTitle);
             statsCard.add(balance);
             statsCard.add(level);
             statsCard.add(location);
 
-            pastOrders = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
-            pastOrders.setLayout(new BoxLayout(pastOrders, BoxLayout.Y_AXIS));
+            PrettyJPanel orderPanel = new PrettyJPanel(PrettyJPanel.Type.TRANSPARENT, PrettyJPanel.Type.OUTLINED);
+            orderPanel.setLayout(new BoxLayout(orderPanel, BoxLayout.Y_AXIS));
 
-            JLabel orderTitle = new JLabel("Past Builds");
+            JLabel orderTitle = new JLabel("Current Burger Recipe");
             orderTitle.setFont(new Font("Helvetica", Font.BOLD, 20));
-            pastOrders.add(orderTitle);
-            for (int i = 0; i < 10; i++){
-                pastBurgers[i] = new JLabel("e" + i);
-                pastBurgers[i].setFont(new Font("Helvetica", Font.PLAIN, 15));
-                pastOrders.add(pastBurgers[i]);
-            }
+
+            currentOrder = new JLabel("Recipe");
+            currentOrder.setFont(new Font("Helvetica", Font.PLAIN, 15));
+
+            orderPanel.add(orderTitle);
+            orderPanel.add(currentOrder);
 
             upperPanel.add(messageCard);
             upperPanel.add(statsCard);
 
             add(upperPanel);
-            add(pastOrders);
+            add(orderPanel);
         }
 
-        public void displayMessage(String message){
+        public void displayMessage(String msg){
+            message.setText(msg);
 
+            repaint();
+        }
+
+        public void displayOrder(Order order){
+            currentOrder.setText("<html>" + order.toString().replace("\n", "<br> <br>") + "</html>");
+
+            repaint();
         }
 
         public void displayBalance(int amount){
             balance.setText("Balance: " + amount + " coins");
+
+            repaint();
         }
 
         public void displayLevel(int level){
             balance.setText("Level: " + level);
             location.setText("Venue: " + Generator.getLocation(level));
+
+            repaint();
         }
     }
 
     private class timeCountdown extends JComponent{
         private int width;
-        private int fill = 10; //from 1-100
+        private int fill = 1000; //from 1-100
 
         public timeCountdown(int width){
             super();
@@ -302,16 +326,12 @@ public class GUIHandler{
             setSize(width, 30);
         }
 
-        public void updateFill(int newFill){
-            fill = newFill;
+        public int getFill(){
+            return fill;
         }
 
         public void incrementFill(int amount){
             fill += amount;
-        }
-
-        public int getFill(){
-            return fill;
         }
 
         @Override
@@ -321,8 +341,8 @@ public class GUIHandler{
             g.setColor(new Color(0x181818));
             g.fillRect(0, 0, width, 30);
 
-            g.setColor(new Color(0xFF0000));
-            g.fillRect(0, 0, fill, 30);
+            g.setColor(new Color(0xff8c00));
+            g.fillRect(0, 0, fill*width/1000, 30);
         }
 
         @Override

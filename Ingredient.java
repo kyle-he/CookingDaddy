@@ -58,7 +58,6 @@ public class Ingredient {
         }
         catch (IOException e)
         {
-            System.out.println(getIconImagePath());
             e.printStackTrace();
         }
     }
@@ -76,7 +75,7 @@ public class Ingredient {
                 imagePath = "images/sauce/sauce_";
                 break;
         }
-        return imagePath + name.replaceAll(" ", "_") + ".png";
+        return imagePath + name.toLowerCase().replaceAll(" ", "_") + ".png";
     }
 
     private String getIconImagePath(){
@@ -92,7 +91,7 @@ public class Ingredient {
                 imagePath = "images/sauce/sauce_";
                 break;
         }
-        return imagePath + name.replaceAll(" ", "_") + ".png";
+        return imagePath + name.toLowerCase().replaceAll(" ", "_") + ".png";
     }
 
     /**

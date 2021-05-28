@@ -28,18 +28,18 @@ public final class Generator {
      */
     public static Recipe generateRecipe(int level){
         Recipe recipe = new Recipe(generateRecipeName());
-        recipe.addIngredient(new Ingredient("bun bottom", Ingredient.Type.FOOD, 1));
+        recipe.addIngredient(new Ingredient("Bun Bottom", Ingredient.Type.FOOD, 1));
         for (int i = 0; i < Math.min(level * 3, 8); i++)
         {
             Ingredient ingredient;
             do {
                 ingredient = getRandom(allIngredients);
-            } while (ingredient.getName().equals("bun top") || ingredient.getName().equals("bun bottom"));
+            } while (ingredient.getName().equals("Bun Top") || ingredient.getName().equals("Bun Bottom"));
 
             recipe.addIngredient(ingredient);
         }
 
-        recipe.addIngredient(new Ingredient("bun top", Ingredient.Type.FOOD, 1));
+        recipe.addIngredient(new Ingredient("Bun Top", Ingredient.Type.FOOD, 1));
 
         return recipe;
     }
@@ -122,17 +122,16 @@ public final class Generator {
                 }
             }
         } catch (IOException ex) {
-            System.out.println(ex);
         }
         return list;
     }
 
     /**
-     * Gets corresponding location for each balance
+     * Gets corresponding location for each level
      * @return location name
      */
-    public static ArrayList<Ingredient> getLocation(int balance){
-        return allIngredients;
+    public static String getLocation(int level){
+        return allPlaceNames.get(Math.min(level, allPlaceNames.size()-1));
     }
 
     /**

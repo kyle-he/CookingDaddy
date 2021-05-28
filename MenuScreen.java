@@ -11,15 +11,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.JTextField;
 
-public class MenuScreen {
+public class MenuScreen implements ActionListener {    
+    private JFrame frame; 
+    private JTextField textField;
+
     public MenuScreen(){
         displayMenu();
     }
 
     public void displayMenu(){
-        final JFrame frame = new JFrame("Cooking Daddy");
+        frame = new JFrame("Cooking Daddy");
         frame.setSize(1000,1000);
         frame.setResizable(false);
         
@@ -44,13 +47,15 @@ public class MenuScreen {
             e.printStackTrace();
         }
 
+        JLabel textLabel = new JLabel("Time of Run: ");
+        textLabel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        mainMenu.add(textLabel);
+
+        textField = new JTextField(16);
+        mainMenu.add(textField);
+
         PrettyButton startButton = new PrettyButton();
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                GameHandler.runGame(frame);
-            }
-        });
+        startButton.addActionListener(this);
         startButton.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
         mainMenu.add(Box.createVerticalStrut(20));
@@ -60,5 +65,14 @@ public class MenuScreen {
         
         frame.setContentPane(contentPane);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            GameHandler.runGame(frame, Integer.parseInt(textField.getText()));
+        } catch(NumberFormatException ex){
+            GameHandler.runGame(frame, 120);
+        }
     }
 }

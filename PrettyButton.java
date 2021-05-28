@@ -20,9 +20,9 @@ class PrettyButton extends JButton{
 
     public PrettyButton(){
         setFont(new Font("Helvetica", Font.PLAIN, 36));
-        setBackground(new Color(0x2dce98));
+        setBackground(new Color(0xff8c00));
         setForeground(Color.white);
-        setText("START");
+        setText("START GAME");
         
         setUI(new PrettyButtonUI());
     } 

@@ -1,30 +1,72 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class GameHandler {
-    private static int coins = 10;
-    private static CustomerHandler ch = new CustomerHandler();
-    private static int level = 1;
-    private static Customer currCustomer;
-    private static OrderBuilder ob;
-    private static GUIHandler ex;
+public class GameHandler
+{
+    private static int             coins = 10;
+    private static CustomerHandler ch    = new CustomerHandler();
+    private static int             level = 1;
+    private static Customer        currCustomer;
+    private static OrderBuilder    ob;
+    private static GUIHandler      ex;
+    private static int time = 120;
 
-    public static void runGame(JFrame frame){
+    public static void runGame(JFrame frame, int inputTime)
+    {
+        time = inputTime;
+        
         ex = new GUIHandler(frame);
         ex.scoreCard.displayBalance(coins);
-        startGame();
+
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                startGame();
+            }
+        });
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                timer();
+            }
+        });
+        executorService.shutdown();
     }
 
     public static void startGame()
     {
         ch.addCustomer(level);
         currCustomer = ch.getCustomer();
-        System.out.println(currCustomer.getOrder());
+
         ob = new OrderBuilder(currCustomer.getOrder());
+        
+        ex.scoreCard.displayOrder(currCustomer.getOrder());
         ex.orderPanel.displayCustomer(currCustomer);
         ex.buildingPanel.clearDisplay();
+    }
 
-        JOptionPane.showMessageDialog(null, currCustomer.getOrder().getCost());
+    private static void timer(){
+        for (int i = 0; i < 1000; i++){
+            try
+            {
+                Thread.sleep(time);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            ex.buildingPanel.incrementTime(-1);
+        }
+        endGame();
+    }
+
+    private static void endGame(){
+        JOptionPane.showMessageDialog(null, "Your " + time + " second run is over! You ended with " + coins + " coins in " + Generator.getLocation(level));
+        System.exit(0);
     }
 
     public static void checkLevelUp()
@@ -32,10 +74,11 @@ public class GameHandler {
         if (coins > level * 60)
         {
             level++;
-            JOptionPane.showMessageDialog(null, "Level up! You are now at level " + level + "!");
+            ex.scoreCard.displayMessage("Level up! You are now at level " + level + "!");
         }
         startGame();
     }
+
 
     public static void addIngredient(Ingredient i)
     {
@@ -44,12 +87,10 @@ public class GameHandler {
         if (ob.build(i))
         {
             ex.buildingPanel.displayFood(curr);
-
-            System.out.println(i);
             if (curr.equals(goal))
             {
                 coins += goal.getCost();
-                JOptionPane.showMessageDialog(null, "You received " + goal.getCost() + " coins!");
+                ex.scoreCard.displayMessage("You received " + goal.getCost() + " coins!");
                 ex.scoreCard.displayBalance(coins);
                 checkLevelUp();
                 return;
@@ -60,8 +101,12 @@ public class GameHandler {
             int coinsLost = 0;
             coinsLost = i.getCost() + curr.calculateCost();
             coins -= coinsLost;
-            JOptionPane.showMessageDialog(null, "Incorrect ingredient. You lost " + coinsLost + " coins.");
+            ex.scoreCard.displayMessage("Incorrect ingredient. You lost " + coinsLost + " coins.");
             ex.scoreCard.displayBalance(coins);
         }
+    }
+
+    public static int getTime(){
+        return time;
     }
 }

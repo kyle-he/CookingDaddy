@@ -62,9 +62,11 @@ public class Recipe {
     public String toString(){
         String recipe = "Name: " + name;
         recipe += "\nIngredients: ";
-        for (Ingredient s: ingredients)
-        {
-            recipe += s + " ";
+
+        String delim = "";
+        for (Ingredient i : ingredients) {
+            recipe += delim + i;
+            delim = ", ";
         }
         return recipe;
     }
